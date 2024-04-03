@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+    background-image: url("../src/luminary.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Poppins', sans-serif;
+}
+
+*{
+    color: white;
+}
+.container {
+    display: flex;
+    margin-bottom: 30px;
+}
