@@ -1,17 +1,53 @@
+* {
+    color: white;
+    font-family: "Poppins", sans-serif;
+}
+
 body {
-    margin: 0;
+    box-sizing: border-box;
     background-image: url("../src/luminary.svg");
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
     background-size: cover;
-    font-family: 'Poppins', sans-serif;
+    margin: 0rem;
+    padding: 0rem;
+    min-height: 100vh;
 }
 
-*{
-    color: white;
-}
-.container {
+#menu {
     display: flex;
-    margin-bottom: 30px;
+    flex-direction: row;
+    margin-bottom: 0;
+    flex-grow: 1;
+    align-items: stretch;
+    justify-content: start;
+    margin-left: 50px;
 }
+
+nav ul li {
+    display: inline-block;
+}
+
+.menu-item {
+    padding: 0 0.75rem 0 0.75rem;
+}
+
+#img{
+    width: auto;
+    height: 3.5rem;
+}
+.menu-item a {
+    display: block;
+    height: 3.625rem;
+    line-height: 3.625rem;
+    text-decoration: none;
+    color: rgb(107, 114, 128);
+    font-size: 0.875rem;
+}
+
+#navbar {
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+}
+

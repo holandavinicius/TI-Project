@@ -22,6 +22,41 @@
 </head>
 
 <body>
+    <nav>
+        <!-- Navigation Menu Full Container -->
+        <div id="navbar" class="d-flex">
+            <!-- Logo -->
+            <div id="logo">
+                <a href="dashboard.php">
+                    <img id="img" src="./src/logo.svg" alt="Logo">
+                </a>
+            </div>
+
+            <!-- Menu Items -->
+            <div id="menu">
+                <!-- Menu Introduction -->
+                <div class="menu-item menu-item-active">
+                    <a href="index.html">
+                        Home
+                    </a>
+                </div>
+                <!-- Courses -->
+                <div class="menu-item">
+                    <a href="courses.html">
+                        Histórico
+                    </a>
+                </div>
+            </div>
+                <!-- Curricula -->
+            <div id="user">
+                <div class="menu-item">
+                    <a href="curricula.html">
+                        Logout
+                    </a>
+                </div>
+            </div>  
+        </div>
+    </nav>
     <div class="container d-flex justify-content-around align-items-center">
         <div id="title-header">
             <h1>Servidor IoT</h1>
