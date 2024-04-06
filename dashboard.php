@@ -22,66 +22,90 @@
 </head>
 
 <body>
-    <nav>
-        <!-- Navigation Menu Full Container -->
-        <div id="navbar" class="d-flex">
-            <!-- Logo -->
-            <div id="logo">
+    <nav class="d-flex">
+        <!-- Logo -->
+        <div id="logo">
+            <a href="dashboard.php">
+                <img id="img" src="./src/logo.svg" alt="Logo">
+            </a>
+        </div>
+
+        <!-- Menu Items -->
+        <div id="menu">
+            <!-- Menu Introduction -->
+            <div class="menu-item menu-item-active">
                 <a href="dashboard.php">
-                    <img id="img" src="./src/logo.svg" alt="Logo">
+                    Home
                 </a>
             </div>
-
-            <!-- Menu Items -->
-            <div id="menu">
-                <!-- Menu Introduction -->
-                <div class="menu-item menu-item-active">
-                    <a href="index.html">
-                        Home
-                    </a>
-                </div>
-                <!-- Courses -->
-                <div class="menu-item">
-                    <a href="courses.html">
-                        Histórico
-                    </a>
-                </div>
+            <!-- Courses -->
+            <div class="menu-item">
+                <a href="dashboard.php">
+                    Histórico
+                </a>
             </div>
-                <!-- Curricula -->
-            <div id="user">
-                <div class="menu-item">
-                    <a href="curricula.html">
-                        Logout
-                    </a>
-                </div>
-            </div>  
         </div>
+            <!-- User -->
+        <div id="user">
+            <div class="menu-item">
+                <a href="index.php" class="me-5">
+                    Logout
+                </a>
+                <a href="dashboard.php">
+                    <img src="./src/person.svg" id="userLogo">
+                </a>
+            </div>
+        </div>  
     </nav>
     <div class="container d-flex justify-content-around align-items-center">
-        <div id="title-header">
+        <div id="title-header" style="color: white;">
             <h1>Servidor IoT</h1>
             <h6>user: Vinícius Maia<h6>
         </div>
     </div>
     <div class="container">
         <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-title"></div>
-                    <div class="card-body"></div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h3>SENSOR 1</h3>
+                    </div>
+                    <div class="card-body">
+                        <img src="./src/wifi.svg" style="width: auto; height: 300px;">
+                        <h6>Wifi: ON</h6>
+                    </div>
+                    <div class="card-footer d-inline-flex justify-content-center">  
+                        <p>06/04/2024 - </p><a href=# >Histórico</a>
+                    </div>
                 </div>    
             </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card-title"></div>
-                    <div class="card-body"></div>
-                </div>    
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h3>SENSOR 1</h3>
+                    </div>
+                    <div class="card-body">
+                        <img src="./src/wifi.svg" style="width: auto; height: 300px;">
+                        <h6>Wifi: ON</h6>
+                    </div>
+                    <div class="card-footer d-inline-flex justify-content-center">  
+                        <p>06/04/2024 - </p><a href=# >Histórico</a>
+                    </div>
+                </div>       
             </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card-title"></div>
-                    <div class="card-body"></div>
-                </div>    
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h3>SENSOR 1</h3>
+                    </div>
+                    <div class="card-body bg-transparent border-light">
+                        <img src="./src/wifi.svg" style="width: auto; height: 300px;">
+                        <h6>Wifi: ON</h6>
+                    </div>
+                    <div class="card-footer d-inline-flex justify-content-center">  
+                        <p>06/04/2024 - </p><a href=# >Histórico</a>
+                    </div>
+                </div>       
             </div>
     </div>
 </body>
