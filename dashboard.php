@@ -48,7 +48,7 @@
             <!-- User -->
         <div id="user">
             <div class="menu-item">
-                <a href="index.php" class="me-5">
+                <a href="logout.php" class="me-5">
                     Logout
                 </a>
                 <a href="dashboard.php">
