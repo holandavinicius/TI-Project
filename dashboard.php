@@ -1,15 +1,9 @@
 <?php session_start();
-<<<<<<< HEAD
-    if(!isset($_SESSION['username']) ){
-        header("refresh:5;url=index.php");
-        die("Acesso Restrito.");
-    }
-=======
+
 if (!isset($_SESSION['username'])) {
     header("refresh:5;url=index.php");
     die("Acesso Restrito.");
 }
->>>>>>> 3c1b97654c8bff747ff425f85010e4bec51c33fe
 ?>
 
 <!DOCTYPE html>
