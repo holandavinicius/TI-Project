@@ -2,24 +2,6 @@
 
 header('Content-Type: text/html; charset=utf-8');
 
-//##How to make a curl request in terminal
-// $url = "http://localhost:8080/Ti-Project/api/api.php"; // URL to make a request
-// // Data to send in the POST request
-// $data = array(
-//     'valor' => '42',
-//     'nome' => 'temperatura'
-// );
-
-// $ch = curl_init($url); // Initialize cURL session
-// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the response instead of outputting it
-// curl_setopt($ch, CURLOPT_POST, true); // Set request to POST method
-// curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data)); // Set POST data
-
-// $response = curl_exec($ch); // Execute the request
-// curl_close($ch); // Close cURL session
-
-// echo $response; // Output the response
-//##How to make a curl request in terminal
 
 
 
