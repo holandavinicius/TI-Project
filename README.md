@@ -7,15 +7,16 @@ This repository will contain all files of TI project.
 
 <h2> TASKS PART 1 (Due: Sunday, 23 April 2023, 11:59 PM) : </h2>
 
+
 - [ ] API para recolha e envio de informações, com as respetiva validações, seguindos boas práticas de desenvolvimento web. <br>
 - [ ] Página de autenticação, com peelo **menos 2 utilizadores**, estando as credenciais (usernames e passwords) num ficheiro à parte do restante do código.<br>
 - [ ] Página de histórico para cada sensor e atuador;
-- [ ] Página de dashboard personalizada de acordo com o tema, e preparada para pelo menos 3 sensores e 3 atuadores;<br>
-- [ ] Design apelativo e responsive utilizando Bootstrap (framework CSS);<br>
-- [ ] Pelo menos 1 ficheiro CSS, com pelo menos 10 selectores CSS, desenvolvido pelos estudantes com o seu design personalizado do website de acordo com o tema escolhido;<br>
-- [ ] Código desenvolvido e devidamente comentado;<br>
 - [ ] Código isento de warnings e erros;<br>
 - [ ] Comprovativo de validação (entrega de printscreen em PDF);
+- [x] Página de dashboard personalizada de acordo com o tema, e preparada para pelo menos 3 sensores e 3 atuadores;<br>
+- [x] Design apelativo e responsive utilizando Bootstrap (framework CSS);<br>
+- [x] Pelo menos 1 ficheiro CSS, com pelo menos 10 selectores CSS, desenvolvido pelos estudantes com o seu design personalizado do website de acordo com o tema escolhido;<br>
+- [x] Código desenvolvido e devidamente comentado;<br>
 <br><br>
 
 -  Todos os ficheiros necessários para o bom funcionamento da API;<br>
