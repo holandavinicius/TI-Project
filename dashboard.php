@@ -4,6 +4,9 @@ if (!isset($_SESSION['username'])) {
     header("refresh:5;url=index.php");
     die("Acesso Restrito.");
 }
+
+require("C:/Users/vinic/Desktop/TI/UniServerZ/www/TI-Project/api/api.php");
+
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +63,7 @@ if (!isset($_SESSION['username'])) {
     <div class="container d-flex justify-content-around align-items-center">
         <div id="title-header" style="color: white;">
             <h1>Servidor IoT</h1>
-            <h6>user: Vinícius Maia<h6>
+            <h6>user: <?php echo $_SESSION['username'] ?><h6>
         </div>
     </div>
     <div class="container">
@@ -75,7 +78,10 @@ if (!isset($_SESSION['username'])) {
                         <h6>Wifi: ON</h6>
                     </div>
                     <div class="card-footer d-inline-flex justify-content-center">
-                        <p>06/04/2024 - </p><a href=#>Histórico</a>
+                        <?php
+                        readLastLine("C:/Users/vinic/Desktop/TI/UniServerZ/www/TI-Project/api/files/temperatura/hora.txt");
+                        ?>
+                        <a href="#">Histórico</a>
                     </div>
                 </div>
             </div>
