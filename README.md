@@ -9,7 +9,7 @@ This repository will contain all files of TI project.
 
 
 - [ ] API para recolha e envio de informações, com as respetiva validações, seguindos boas práticas de desenvolvimento web. <br>
-- [ ] Página de autenticação, com peelo **menos 2 utilizadores**, estando as credenciais (usernames e passwords) num ficheiro à parte do restante do código.<br>
+- [x] Página de autenticação, com peelo **menos 2 utilizadores**, estando as credenciais (usernames e passwords) num ficheiro à parte do restante do código.<br>
 - [ ] Página de histórico para cada sensor e atuador;
 - [ ] Código isento de warnings e erros;<br>
 - [ ] Comprovativo de validação (entrega de printscreen em PDF);
