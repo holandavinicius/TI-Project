@@ -1,11 +1,16 @@
 <?php
 
-require("C:/Users/vinic/Desktop/TI/UniServerZ/www/TI-Project/userVerification.php");
 session_start();
-$username = "a";
-$password_hash = '$2y$10$if7.j4R33I5K7z7CNH/m/OCtnsDMJh.qIUmANGcHrs4ET.q540lXa';  //password a
-$users = readUsers();
+
+
+require_once("./helpers/users_verification.php");
+$userVerification = new UserVerification(); 
+$users = $userVerification->readUsers();
+
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -41,6 +46,7 @@ $users = readUsers();
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
         <?php if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['username']) && isset($_POST['password'])) {
+            // if (password_verify ($_POST['password'], $password_hash) && $_POST['username'] == $username) {
             if (password_verify($_POST['password'], $users[$_POST['username']]) && isset($users[$_POST['username']])) {
                 $_SESSION['username'] = $_POST['username'];
                 header("Location: dashboard.php");
