@@ -1,11 +1,14 @@
-<?php session_start();
+<?php 
+
+
+session_start();
+
 
 if (!isset($_SESSION['username'])) {
     header("refresh:5;url=index.php");
     die("Acesso Restrito.");
 }
 
-require("C:/Users/vinic/Desktop/TI/UniServerZ/www/TI-Project/api/api.php");
 
 ?>
 
@@ -43,7 +46,7 @@ require("C:/Users/vinic/Desktop/TI/UniServerZ/www/TI-Project/api/api.php");
             </div>
             <!-- Courses -->
             <div class="menu-item">
-                <a href="dashboard.php">
+                <a href="historico.php">
                     Histórico
                 </a>
             </div>
@@ -54,41 +57,81 @@ require("C:/Users/vinic/Desktop/TI/UniServerZ/www/TI-Project/api/api.php");
                 <a href="logout.php" class="me-5">
                     Logout
                 </a>
-                <a href="dashboard.php">
+                <a href="profile.php">
                     <img src="./src/person.svg" id="userLogo">
                 </a>
             </div>
         </div>
     </nav>
+    
     <div class="container d-flex justify-content-around align-items-center">
         <div id="title-header" style="color: white;">
             <h1>Servidor IoT</h1>
             <h6>user: <?php echo $_SESSION['username'] ?><h6>
         </div>
     </div>
+
+
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card text-center">
                     <div class="card-header">
-                        <h3>SENSOR 1</h3>
+                        <h3>Temperatura</h3>
                     </div>
                     <div class="card-body">
-                        <img id="imgDashboard" src="./src/wifi.svg" style="width: auto; height: 300px;">
+                        <img id="imgDashboard" src="./images/temperature-high.png" style="width: auto; height: 300px;">
+                        <br>
                         <h6>Wifi: ON</h6>
                     </div>
                     <div class="card-footer d-inline-flex justify-content-center">
                         <?php
-                        readLastLine("C:/Users/vinic/Desktop/TI/UniServerZ/www/TI-Project/api/files/temperatura/hora.txt");
+                            //readLastLine("C:/Users/vinic/Desktop/TI/UniServerZ/www/TI-Project/api/files/temperatura/hora.txt");
                         ?>
-                        <a href="#">Histórico</a>
+                        <!-- <a href="#">Histórico</a> -->
+                        <p>06/04/2024 - </p><a href=#>Histórico</a>
                     </div>
                 </div>
             </div>
+
+
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card text-center">
                     <div class="card-header">
-                        <h3>SENSOR 1</h3>
+                        <h3>Humidade</h3>
+                    </div>
+                    <div class="card-body">
+                        <img id="imgDashboard" src="./images/humidity-high.png" style="width: auto; height: 300px;">
+                        <h6>Wifi: ON</h6>
+                    </div>
+                    <div class="card-footer d-inline-flex justify-content-center">
+                        <p>06/04/2024 - </p><a href=#>Histórico</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h3>Luminosidade</h3>
+                    </div>
+                    <div class="card-body bg-transparent border-light">
+                        <img id="imgDashboard" src="./images/light-on.png" style="width: auto; height: 300px;">
+                        <h6>Wifi: ON</h6>
+                    </div>
+                    <div class="card-footer d-inline-flex justify-content-center">
+                        <p>06/04/2024 - </p><a href=#>Histórico</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h3>ATUADOR 1</h3>
                     </div>
                     <div class="card-body">
                         <img id="imgDashboard" src="./src/wifi.svg" style="width: auto; height: 300px;">
@@ -102,7 +145,21 @@ require("C:/Users/vinic/Desktop/TI/UniServerZ/www/TI-Project/api/api.php");
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card text-center">
                     <div class="card-header">
-                        <h3>SENSOR 1</h3>
+                        <h3>ATUADOR 2</h3>
+                    </div>
+                    <div class="card-body">
+                        <img id="imgDashboard" src="./src/wifi.svg" style="width: auto; height: 300px;">
+                        <h6>Wifi: ON</h6>
+                    </div>
+                    <div class="card-footer d-inline-flex justify-content-center">
+                        <p>06/04/2024 - </p><a href=#>Histórico</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h3>ATUADOR 3</h3>
                     </div>
                     <div class="card-body bg-transparent border-light">
                         <img id="imgDashboard" src="./src/wifi.svg" style="width: auto; height: 300px;">
@@ -114,52 +171,10 @@ require("C:/Users/vinic/Desktop/TI/UniServerZ/www/TI-Project/api/api.php");
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="card text-center">
-                    <div class="card-header">
-                        <h3>SENSOR 1</h3>
-                    </div>
-                    <div class="card-body">
-                        <img id="imgDashboard" src="./src/wifi.svg" style="width: auto; height: 300px;">
-                        <h6>Wifi: ON</h6>
-                    </div>
-                    <div class="card-footer d-inline-flex justify-content-center">
-                        <p>06/04/2024 - </p><a href=#>Histórico</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="card text-center">
-                    <div class="card-header">
-                        <h3>SENSOR 1</h3>
-                    </div>
-                    <div class="card-body">
-                        <img id="imgDashboard" src="./src/wifi.svg" style="width: auto; height: 300px;">
-                        <h6>Wifi: ON</h6>
-                    </div>
-                    <div class="card-footer d-inline-flex justify-content-center">
-                        <p>06/04/2024 - </p><a href=#>Histórico</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="card text-center">
-                    <div class="card-header">
-                        <h3>SENSOR 1</h3>
-                    </div>
-                    <div class="card-body bg-transparent border-light">
-                        <img id="imgDashboard" src="./src/wifi.svg" style="width: auto; height: 300px;">
-                        <h6>Wifi: ON</h6>
-                    </div>
-                    <div class="card-footer d-inline-flex justify-content-center">
-                        <p>06/04/2024 - </p><a href=#>Histórico</a>
-                    </div>
-                </div>
-            </div>
+      
         </div>
-        <div class="row">
-            <div class="col-12 mt-5">
+        <div class="row justify-content-center">
+            <div class="col-10 mt-5">
                 <div class="card text-center">
                     <div class="card-header">
                         <h3>Tabela de sensores</h3>
@@ -176,6 +191,7 @@ require("C:/Users/vinic/Desktop/TI/UniServerZ/www/TI-Project/api/api.php");
                             </thead>
                             <tbody>
                                 <tr>
+                                    <!-- Data from files -->
                                     <td><?php echo $nome_temperatura  ?> </td>
                                     <td><?php echo $valor_temperatura ?></td>
                                     <td><?php echo $hora_temperatura ?>
