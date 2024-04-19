@@ -16,17 +16,17 @@ class ServiceController{
             case "POST":
                 //switch($device){}
                 if ($device == "temperatura") {
-                    file_put_contents("C:/Users/vinic/Desktop/TI/UniServerZ/www/TI-Project/api/files/temperatura/nome.txt", $_POST['nome'] . '' . PHP_EOL, FILE_APPEND);
-                    file_put_contents("C:/Users/vinic/Desktop/TI/UniServerZ/www/TI-Project/api/files/temperatura/valor.txt", $_POST['valor'] . '' . PHP_EOL, FILE_APPEND);
-                    file_put_contents("C:/Users/vinic/Desktop/TI/UniServerZ/www/TI-Project/api/files/temperatura/valor.txt", $_POST['hora'] . '' . PHP_EOL, FILE_APPEND);
+                    file_put_contents("C:/UniServerZ/www/TI-Project/api/files/temperatura/nome.txt", $_POST['nome'] . '' . PHP_EOL, FILE_APPEND);
+                    file_put_contents("C:/UniServerZ/www/TI-Project/api/files/temperatura/valor.txt", $_POST['valor'] . '' . PHP_EOL, FILE_APPEND);
+                    file_put_contents("C:/UniServerZ/www/TI-Project/api/files/temperatura/valor.txt", $_POST['hora'] . '' . PHP_EOL, FILE_APPEND);
                 }
                     
                 else if ($device == "valor") {
-                    file_put_contents("C:/Users/vinic/Desktop/TI/UniServerZ/www/TI-Project/api/files/temperatura/valor.txt", $_POST['valor'] . '' . PHP_EOL, FILE_APPEND);
+                    file_put_contents("C:/UniServerZ/www/TI-Project/api/files/temperatura/valor.txt", $_POST['valor'] . '' . PHP_EOL, FILE_APPEND);
                 }
                     
                 else if ($device == "hora") {
-                    file_put_contents("C:/Users/vinic/Desktop/TI/UniServerZ/www/TI-Project/api/files/temperatura/valor.txt", $_POST['hora'] . '' . PHP_EOL, FILE_APPEND);
+                    file_put_contents("C:/UniServerZ/www/TI-Project/api/files/temperatura/valor.txt", $_POST['hora'] . '' . PHP_EOL, FILE_APPEND);
                 }
                 break;
             default:
