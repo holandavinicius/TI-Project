@@ -13,9 +13,9 @@ This repository will contain all files of TI project.
 
 Integration steps on Server:
 
-Path on Windows Network: \\iot.dei.estg.ipleiria.pt\EI-TI-g170
-Folder user: g170	
-Password: LKuGjS6xdvDc	
+Path on Windows Network: \\iot.dei.estg.ipleiria.pt\EI-TI-g170 <br>
+Folder user: g170	<br>
+Password: LKuGjS6xdvDc	<br>
 
 -----------------------------------------------------------------
 
