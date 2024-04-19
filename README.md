@@ -5,7 +5,19 @@ This repository will contain all files of TI project.
 <h1> Tema 14 - Escola/Universidade/Campus Inteligente </h1>
 
 
+
+
 <h2> TASKS PART 1 (Due: Sunday, 23 April 2023, 11:59 PM) : </h2>
+
+-----------------------------------------------------------------
+
+Integration steps on Server:
+
+Path on Windows Network: \\iot.dei.estg.ipleiria.pt\EI-TI-g170
+Folder user: g170	
+Password: LKuGjS6xdvDc	
+
+-----------------------------------------------------------------
 
 
 - [ ] API para recolha e envio de informações, com as respetiva validações, seguindos boas práticas de desenvolvimento web. <br>
