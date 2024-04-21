@@ -1,31 +1,35 @@
 <?php
 
-header('Content-Type: text/html; charset=utf-8');~
+header('Content-Type: text/html; charset=utf-8');
 
-require_once("../TI-Project/api/device_data_interface.php");
-require_once("../TI-Project/api/device_data_model.php");
-require_once("../TI-Project/api/device_data_service.php");
+require_once("C:/UniServerZ/www/ti/api/device_data_interface.php");
+require_once("C:/UniServerZ/www/ti/api/device_data_model.php");
+require_once("C:/UniServerZ/www/ti/api/device_data_service.php");
 
 
-$deviceDataModel;
+
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-    $nome = $_POST["nome"];
+    
+    $nome =$_POST["nome"];
     $valor = $_POST["valor"];
-    $hora = $_POST["hora"];
+    $hora = $_POST["hora"]; 
 
-    $$deviceDataModel = new DeviceDataModel($nome,$time,$valor);
+  
+    $deviceDataModel = new DeviceDataModel($nome,$hora,$valor);
+
     $deviceService = new DeviceDataService();
-    $deviceService->ProcessDataPost($$deviceDataModel);
+    $deviceService->ProcessDataPost($deviceDataModel);
 
 
 } else if ($_SERVER['REQUEST_METHOD'] == "GET") {
-    $device = $_GET["nome"] ?? null;
+    $device = $_GET["nome"];
 
     $deviceService = new DeviceDataService();
     $deviceDataModel = $deviceService->ProcessDataGet($device);
-
+    
+    print_r(json_encode((array)$deviceDataModel));
 } else {
     print ("Invalid request");
 }
