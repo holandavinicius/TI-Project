@@ -3,8 +3,8 @@
 session_start();
 
 
-require_once("./helpers/users_verification.php");
-$userVerification = new UserVerification(); 
+require("../TI-Project/helpers/users_authentication.php");
+$userVerification = new UserAuthentication(); 
 $users = $userVerification->readUsers();
 
 ?>
@@ -46,7 +46,6 @@ $users = $userVerification->readUsers();
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
         <?php if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['username']) && isset($_POST['password'])) {
-            // if (password_verify ($_POST['password'], $password_hash) && $_POST['username'] == $username) {
             if (password_verify($_POST['password'], $users[$_POST['username']]) && isset($users[$_POST['username']])) {
                 $_SESSION['username'] = $_POST['username'];
                 header("Location: dashboard.php");
