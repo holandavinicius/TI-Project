@@ -2,9 +2,9 @@
 
 header('Content-Type: text/html; charset=utf-8');
 
-require_once("C:/UniServerZ/www/ti/api/device_data_interface.php");
-require_once("C:/UniServerZ/www/ti/api/device_data_model.php");
-require_once("C:/UniServerZ/www/ti/api/device_data_service.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/ti/api/device_data_interface.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/ti/api/device_data_model.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/ti/api/device_data_service.php");
 
 
 
@@ -12,7 +12,7 @@ require_once("C:/UniServerZ/www/ti/api/device_data_service.php");
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     
-    $nome =$_POST["nome"];
+    $nome = $_POST["nome"];
     $valor = $_POST["valor"];
     $hora = $_POST["hora"]; 
 
