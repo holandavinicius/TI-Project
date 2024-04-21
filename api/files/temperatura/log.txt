@@ -1,0 +1,6 @@
+nome: Temperatura hora:21/02/2024 14:31:00 valor:42
+nome: Temperatura hora:21/02/2024 14:31:00 valor:42
+nome: Temperatura hora:21/02/2024 14:31:00 valor:42
+nome: Temperatura hora:2024-04-2108:51:38pm valor:42
+nome: Temperatura hora:2024-04-2108:52:36pm valor:42
+nome: Temperatura hora:2024-04-2108:52:53pm valor:37

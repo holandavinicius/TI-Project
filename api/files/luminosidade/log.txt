@@ -1,0 +1,4 @@
+nome: Luminosidade hora:2024-04-2108:57:05pm valor:3500K
+nome: Luminosidade hora:2024-04-2108:57:15pm valor:3500K
+nome: Luminosidade hora:2024-04-2108:57:16pm valor:3500K
+nome: Luminosidade hora:2024-04-2108:59:32pm valor:Ligado
