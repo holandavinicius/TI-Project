@@ -1,14 +1,27 @@
 <?php 
-
+require_once("../TI-Project/api/device_data_interface.php");
+require_once("../TI-Project/api/device_data_model.php");
+require_once("../TI-Project/api/device_data_service.php");
 
 session_start();
 
 
+
 if (!isset($_SESSION['username'])) {
-    header("refresh:5;url=index.php");
-    die("Acesso Restrito.");
+    header("refresh:60;url=index.php");
+    die("Acess denied.");
 }
 
+const Temperatura = "temperatura";
+const Luminosidade = "luminosidade";
+const Humidade = "humidade";
+
+$deviceService = new DeviceDataService();
+
+
+$tempSensorData = $deviceService->ProcessDataGet(Temperatura);
+$lightSensorData = $deviceService->ProcessDataGet(Luminosidade);
+$humiditySensorData = $deviceService->ProcessDataGet(Humidade);
 
 ?>
 
@@ -192,27 +205,23 @@ if (!isset($_SESSION['username'])) {
                             <tbody>
                                 <tr>
                                     <!-- Data from files -->
-                                    <td><?php echo $nome_temperatura  ?> </td>
-                                    <td><?php echo $valor_temperatura ?></td>
-                                    <td><?php echo $hora_temperatura ?>
-                                    <td>
-                                        <span class="badge rounded-pill text-bg-warning">Primary</span>
+                                    <td><?php echo $tempSensorData->getName()?> </td>
+                                    <td><?php echo $tempSensorData->getValue()?></td>
+                                    <td><?php echo $tempSensorData->getTime()?></td>
+                                    <td><span class="badge rounded-pill text-bg-warning">Primary</span></td>s
+                                </tr>
+                                <tr>
+                                    <td><?php echo $humiditySensorData->getName()?> </td>
+                                    <td><?php echo $humiditySensorData->getValue()?></td>
+                                    <td><?php echo $humiditySensorData->getTime()?></td>
+                                    <td><span class="badge rounded-pill text-bg-primary">Primary</span></td>
                                 </tr>
 
                                 <tr>
-                                    <td>Humidade</td>
-                                    <td>70%</td>
-                                    <td>2024/04/10 14:31
-                                    <td>
-                                        <span class="badge rounded-pill text-bg-primary">Primary</span>
-                                </tr>
-
-                                <tr>
-                                    <td>LedArduino</td>
-                                    <td>Ligado</td>
-                                    <td>2024/04/10 14:31
-                                    <td>
-                                        <span class="badge rounded-pill text-bg-success">Primary</span>
+                                    <td><?php echo $lightSensorData->getName()?> </td>
+                                    <td><?php echo $lightSensorData->getValue()?></td>
+                                    <td><?php echo $lightSensorData->getTime()?></td>
+                                    <td><span class="badge rounded-pill text-bg-success">Primary</span></td>
                                 </tr>
                             </tbody>
                         </table>
