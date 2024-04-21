@@ -21,7 +21,7 @@ class DeviceDataModel {
   
 
     public function setLog($log){
-        $this->_log = $log;
+        $this->log = $log;
     }
 
 
