@@ -7,12 +7,11 @@ require_once("../TI-Project/api/device_data_model.php");
 
 class DeviceDataService implements DeviceDataInterface {
     
-
-    
+    CONST RelativePath = "../TI-Project/api/files/";
     public function ProcessDataPost(DeviceDataModel $_deviceData){
 
         
-        $path = "./api/files/" . $_deviceData->getName();
+        $path =  self::RelativePath.$_deviceData->getName();
         
         file_put_contents($path."/nome.txt", $_deviceData->getName() . PHP_EOL, FILE_TEXT);
         file_put_contents($path."/valor.txt", $_deviceData->getValue() . PHP_EOL, FILE_APPEND);
@@ -26,7 +25,7 @@ class DeviceDataService implements DeviceDataInterface {
  
     public function ProcessDataGet($device) : DeviceDataModel{
 
-        $path = "./api/files/" . $device;
+        $path = self::RelativePath.$device;
         
         $name = file_get_contents($path."/nome.txt",false);
         $value = file_get_contents($path."/valor.txt", false);
