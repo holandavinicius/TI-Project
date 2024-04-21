@@ -1,35 +1,33 @@
 <?php
 
-header('Content-Type: text/html; charset=utf-8');
+header('Content-Type: text/html; charset=utf-8');~
+
+require_once("../TI-Project/api/device_data_interface.php");
+require_once("../TI-Project/api/device_data_model.php");
+require_once("../TI-Project/api/device_data_service.php");
 
 
-// $globalClass = new GlobalClass();
-// require("C:/UniServerZ/www/TI-Project/controllers/ServiceController.php");
+$deviceDataModel;
 
-// $controller = new ServiceController;
-// $controller->processRequest($_SERVER['REQUEST_METHOD'], $device);
-// function readLastLine(string $path): void
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+    $nome = $_POST["nome"];
+    $valor = $_POST["valor"];
+    $hora = $_POST["hora"];
+
+    $$deviceDataModel = new DeviceDataModel($nome,$time,$valor);
+    $deviceService = new DeviceDataService();
+    $deviceService->ProcessDataPost($$deviceDataModel);
 
 
-$device = "";
+} else if ($_SERVER['REQUEST_METHOD'] == "GET") {
+    $device = $_GET["nome"] ?? null;
 
-    if($_SERVER['REQUEST_METHOD'] == "POST"){
-      
-       $nome = $_POST["nome"];
-       $valor = $_POST["nome"];
-       $hora = $_POST["nome"];
-         
-        file_put_contents("./api/files/".$device."/nome.txt",$nome . '' . PHP_EOL, FILE_APPEND);
-        file_put_contents("./api/files/".$device."/valor.txt", $valor . '' . PHP_EOL, FILE_APPEND);
-        file_put_contents("./api/files/".$device."/hora.txt", $hora . '' . PHP_EOL, FILE_APPEND);
-    } else if ($_SERVER['REQUEST_METHOD'] == "GET"){
-        $device = $_GET["nome"] ?? null;
+    $deviceService = new DeviceDataService();
+    $deviceDataModel = $deviceService->ProcessDataGet($device);
 
-        file_get_contents("./api/files/".$device."/nome.txt",$nome);
-        file_get_contents("./api/files/".$device."/valor.txt", $valor);
-        file_get_contents("./api/files/".$device."/hora.txt", $hora);
-    } else {
-        print("Invalid request");
-    }
+} else {
+    print ("Invalid request");
+}
 
 
