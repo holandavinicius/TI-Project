@@ -3,7 +3,7 @@
 session_start();
 
 
-require_once("C:/UniServerZ/www/ti/helpers/users_authentication.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/ti/helpers/users_authentication.php");
 
 $userVerification = new UserAuthentication(); 
 $users = $userVerification->readUsers();
