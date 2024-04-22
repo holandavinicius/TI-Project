@@ -11,21 +11,27 @@ session_start();
 
 if (!isset($_SESSION['username'])) {
     header("refresh:60;url=index.php");
-    die("Acess denied.");
+    die("Access denied.");
 }
 
-const Temperatura = "temperatura";
-const Luminosidade = "luminosidade";
-const Humidade = "humidade";
+const STemperatura = "temperatura";
+const SLuminosidade = "luminosidade";
+const SHumidade = "humidade";
+const ACancelaSinalizacao = "cancela";
+const APortaAutomatica = "porta";
+const AEsteiraTabuleiros = "esteira";
 
 $deviceService = new DeviceDataService();
 
 
-$tempSensorData = $deviceService->ProcessDataGet(Temperatura);
-$lightSensorData = $deviceService->ProcessDataGet(Luminosidade);
-$humiditySensorData = $deviceService->ProcessDataGet(Humidade);
+$sTempSensorData = $deviceService->ProcessDataGet(STemperatura);
+$sLightSensorData = $deviceService->ProcessDataGet(SLuminosidade);
+$sHumiditySensorData = $deviceService->ProcessDataGet(SHumidade);
 
 
+$aBarrierActuadorData = $deviceService->ProcessDataGet(ACancelaSinalizacao);
+$aDoorActuadorData = $deviceService->ProcessDataGet(APortaAutomatica);
+$aTrayActuadorData = $deviceService->ProcessDataGet(AEsteiraTabuleiros);
 
 ?>
 
@@ -47,27 +53,16 @@ $humiditySensorData = $deviceService->ProcessDataGet(Humidade);
 <body>
     
     <nav class="d-flex">
-        <!-- Logo -->
         <div id="logo">
             <a href="dashboard.php">
                 <img id="img" src="./src/logo.svg" alt="Logo">
             </a>
         </div>
-
-        <!-- Menu Items -->
         <div id="menu">
-            <!-- Menu Introduction -->
             <div class="menu-item menu-item-active">
                 <a href="dashboard.php">Home</a>
             </div>
-            <!-- Courses -->
-            <div class="menu-item">
-                <a href="historico.php">
-                    Histórico
-                </a>
-            </div>
         </div>
-        <!-- User -->
         <div id="user">
             <div class="menu-item">
                 <a href="logout.php" class="me-5">
@@ -92,15 +87,15 @@ $humiditySensorData = $deviceService->ProcessDataGet(Humidade);
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card text-center">
-                    <div class="card-header">
-                        <h3>Temperatura: <?php echo $lightSensorData->getValue()?></h3>
+                    <div class="card-header" color="red">
+                        <h3>Temperatura</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" text-center>
                         <img id="imgDashboard" src="./images/temperature-high.png" style="width: auto; height: 300px;">
-                        <br>
+                        <h3><?php echo $sTempSensorData->getValue()."ºC"?></h3>
                     </div>
                     <div class="card-footer d-inline-flex justify-content-center">
-                        <?php echo "Atualização: ".substr($tempSensorData->getTime(),0,10)?>
+                        <?php echo "Atualização: ".substr($sTempSensorData->getTime(),0,10)?>
                         <a> - </a>
                         <a href="historico.php?nome=temperatura">Histórico</a>
                     </div>
@@ -111,13 +106,14 @@ $humiditySensorData = $deviceService->ProcessDataGet(Humidade);
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card text-center">
                     <div class="card-header">
-                        <h3>Humidade: <?php echo $humiditySensorData->getValue()?></h3>
+                        <h3>Humidade</h3>
                     </div>
                     <div class="card-body">
                         <img id="imgDashboard" src="./images/humidity-high.png" style="width: auto; height: 300px;">
+                        <h3><?php echo $sHumiditySensorData->getValue()?></h3>
                     </div>
                     <div class="card-footer d-inline-flex justify-content-center">
-                        <?php echo "Atualização: ".substr($humiditySensorData->getTime(),0,10)?>
+                        <?php echo "Atualização: ".substr($sHumiditySensorData->getTime(),0,10)?>
                         <a> - </a>
                         <a href="historico.php?nome=humidade">Histórico</a>
                     </div>
@@ -128,13 +124,15 @@ $humiditySensorData = $deviceService->ProcessDataGet(Humidade);
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card text-center">
                     <div class="card-header">
-                        <h3>Luminosidade: <?php echo $lightSensorData->getValue()?></h3>
+                        <h3>Luminosidade</h3>
+                       
                     </div>
                     <div class="card-body bg-transparent border-light">
                         <img id="imgDashboard" src="./images/light-on.png" style="width: auto; height: 300px;">
+                        <h3><?php echo $sLightSensorData->getValue()?></h3>
                     </div>
                     <div class="card-footer d-inline-flex justify-content-center">
-                        <?php echo "Atualização: ".substr($lightSensorData->getTime(),0,10)?>
+                        <?php echo "Atualização: ".substr($sLightSensorData->getTime(),0,10)?>
                         <a> - </a>
                         <a href="historico.php?nome=luminosidade">  Histórico</a>
                     </div>
@@ -146,45 +144,48 @@ $humiditySensorData = $deviceService->ProcessDataGet(Humidade);
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card text-center">
                     <div class="card-header">
-                        <h3>ATUADOR 1</h3>
+                        <h3>Cancela de Sinalização</h3>
                     </div>
                     <div class="card-body">
-                        <img id="imgDashboard" src="./src/wifi.svg" style="width: auto; height: 300px;">
-                        <h6>Wifi: ON</h6>
+                        <img id="imgDashboard" src="./src/barrier-car.svg" style="width: auto; height: 300px;">
+                        <h3><?php echo $aBarrierActuadorData->getValue()?></h3>
                     </div>
                     <div class="card-footer d-inline-flex justify-content-center">
-                        <p>06/04/2024 - </p>
-                        <a href="../ti/historico.php">Histórico</a>
+                        <?php echo "Atualização: ".substr($aBarrierActuadorData->getTime(),0,10)?>
+                        <a> - </a>
+                        <a href="historico.php?nome=cancela">Histórico</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card text-center">
                     <div class="card-header">
-                        <h3>ATUADOR 2</h3>
+                        <h3>Porta Automática</h3>
                     </div>
                     <div class="card-body">
-                        <img id="imgDashboard" src="./src/wifi.svg" style="width: auto; height: 300px;">
-                        <h6>Wifi: ON</h6>
+                        <img id="imgDashboard" src="./src/open-door.svg" style="width: auto; height: 300px;">
+                        <h3><?php echo $aDoorActuadorData->getValue()?></h3>
                     </div>
                     <div class="card-footer d-inline-flex justify-content-center">
-                        <p>06/04/2024 - </p>
-                        <a href="../ti/historico.php">Histórico</a>
+                        <?php echo "Atualização: ".substr($aDoorActuadorData->getTime(),0,10)?>
+                        <a> - </a>
+                        <a href="historico.php?nome=porta">Histórico</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card text-center">
                     <div class="card-header">
-                        <h3>ATUADOR 3</h3>
+                        <h3>Esteira de Tabuleiros</h3>
                     </div>
                     <div class="card-body bg-transparent border-light">
-                        <img id="imgDashboard" src="./src/wifi.svg" style="width: auto; height: 300px;">
-                        <h6>Wifi: ON</h6>
+                        <img id="imgDashboard" src="./src/food-conveyor.svg" style="width: auto; height: 300px;">
+                        <h3><?php echo $aTrayActuadorData->getValue()?></h3>
                     </div>
                     <div class="card-footer d-inline-flex justify-content-center">
-                        <p>06/04/2024 - </p>
-                        <a href="../ti/historico.php">Histórico</a>
+                        <?php echo "Atualização: ".substr($aTrayActuadorData->getTime(),0,10)?>
+                        <a> - </a>
+                        <a href="historico.php?nome=esteira">Histórico</a>
                     </div>
                 </div>
             </div>
@@ -209,22 +210,22 @@ $humiditySensorData = $deviceService->ProcessDataGet(Humidade);
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><?php echo $tempSensorData->getName()?> </td>
-                                    <td><?php echo $tempSensorData->getValue()?></td>
-                                    <td><?php echo $tempSensorData->getTime()?></td>
+                                    <td><?php echo $sTempSensorData->getName()?> </td>
+                                    <td><?php echo $sTempSensorData->getValue()?></td>
+                                    <td><?php echo $sTempSensorData->getTime()?></td>
                                     <td><span class="badge rounded-pill text-bg-warning">Primary</span></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo $humiditySensorData->getName()?> </td>
-                                    <td><?php echo $humiditySensorData->getValue()?></td>
-                                    <td><?php echo $humiditySensorData->getTime()?></td>
+                                    <td><?php echo $sHumiditySensorData->getName()?> </td>
+                                    <td><?php echo $sHumiditySensorData->getValue()?></td>
+                                    <td><?php echo $sHumiditySensorData->getTime()?></td>
                                     <td><span class="badge rounded-pill text-bg-primary">Primary</span></td>
                                 </tr>
 
                                 <tr>
-                                    <td><?php echo $lightSensorData->getName()?> </td>
-                                    <td><?php echo $lightSensorData->getValue()?></td>
-                                    <td><?php echo $lightSensorData->getTime()?></td>
+                                    <td><?php echo $sLightSensorData->getName()?> </td>
+                                    <td><?php echo $sLightSensorData->getValue()?></td>
+                                    <td><?php echo $sLightSensorData->getTime()?></td>
                                     <td><span class="badge rounded-pill text-bg-success">Primary</span></td>
                                 </tr>
                             </tbody>
