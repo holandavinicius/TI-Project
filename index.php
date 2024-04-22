@@ -2,7 +2,6 @@
 
 session_start();
 
-
 require_once($_SERVER["DOCUMENT_ROOT"]."/ti/helpers/users_authentication.php");
 
 $userVerification = new UserAuthentication(); 
@@ -20,7 +19,7 @@ $users = $userVerification->readUsers();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/loginpage.css">
-    <meta http-equiv="refresh" content="5">
+    <meta http-equiv="refresh" content="60">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
