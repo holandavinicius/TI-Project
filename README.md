@@ -20,11 +20,11 @@ Password: LKuGjS6xdvDc	<br>
 -----------------------------------------------------------------
 
 
-- [ ] API para recolha e envio de informações, com as respetiva validações, seguindos boas práticas de desenvolvimento web. <br>
-- [x] Página de autenticação, com peelo **menos 2 utilizadores**, estando as credenciais (usernames e passwords) num ficheiro à parte do restante do código.<br>
-- [ ] Página de histórico para cada sensor e atuador;
 - [ ] Código isento de warnings e erros;<br>
 - [ ] Comprovativo de validação (entrega de printscreen em PDF);
+- [x] API para recolha e envio de informações, com as respetiva validações, seguindos boas práticas de desenvolvimento web. <br>
+- [x] Página de autenticação, com peelo **menos 2 utilizadores**, estando as credenciais (usernames e passwords) num ficheiro à parte do restante do código.<br>
+- [x] Página de histórico para cada sensor e atuador;
 - [x] Página de dashboard personalizada de acordo com o tema, e preparada para pelo menos 3 sensores e 3 atuadores;<br>
 - [x] Design apelativo e responsive utilizando Bootstrap (framework CSS);<br>
 - [x] Pelo menos 1 ficheiro CSS, com pelo menos 10 selectores CSS, desenvolvido pelos estudantes com o seu design personalizado do website de acordo com o tema escolhido;<br>
