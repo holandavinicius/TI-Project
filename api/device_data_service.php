@@ -5,9 +5,16 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/ti/api/device_data_interface.php");
 require_once($_SERVER["DOCUMENT_ROOT"]."/ti/api/device_data_model.php");
 
 
+
 class DeviceDataService implements DeviceDataInterface {
     
     CONST RelativePath = '/ti/api/files/';
+
+
+    /*
+        Função ProcessDataPost: responsável por receber os dados da requisição POST, processa-los e envia-los (escrever)
+        para os seus respetivos ficheiros em api/files 
+    */
     public function ProcessDataPost(DeviceDataModel $_deviceData){
 
         $path = $_SERVER["DOCUMENT_ROOT"].self::RelativePath;
@@ -15,12 +22,11 @@ class DeviceDataService implements DeviceDataInterface {
         
         $path = $path.strtolower($_deviceData->getName());    
 
-       
-        
         file_put_contents($path."/nome.txt",$_deviceData->getName(), FILE_TEXT);
         file_put_contents($path."/valor.txt",$_deviceData->getValue(), FILE_TEXT);
         file_put_contents($path."/hora.txt",$_deviceData->getTime(), FILE_TEXT);
 
+        //Log gerado a cada post ex: Porta/2024-04-21/08:51:38pm/Aberto,
         $log = $_deviceData->getName()."/".date("Y-m-d")."/".date("h:i:sa")."/".$_deviceData->getValue().",";
         
         file_put_contents($path."/log.txt",   $log.PHP_EOL, FILE_APPEND);
@@ -28,6 +34,11 @@ class DeviceDataService implements DeviceDataInterface {
         
     }
  
+
+    /*
+        Função ProcessDataPost: responsável por obter os dados da requisição GET, processa-los e será devolvido
+        um object DeviceDataModel que representa os dados de cada ficheiro.
+    */
     public function ProcessDataGet($device) : DeviceDataModel{
 
         $path = $_SERVER["DOCUMENT_ROOT"].self::RelativePath.strtolower($device);
