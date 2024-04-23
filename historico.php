@@ -83,22 +83,18 @@ if (!isset($_SESSION['username'])) {
                 </thead>
                 <tbody>
                     <?php
-                    $deviceDataService = new DeviceDataService();
-                    // echo $device;
-                    $resultData = $deviceDataService->ProcessDataGet($device);
+                        $deviceDataService = new DeviceDataService();
+                        $resultData = $deviceDataService->ProcessDataGet($device);
+                        $log = $resultData->getLog();
+                        $strSplit = explode(",", $log);
 
-                    $log = $resultData->getLog();
+                        foreach ($strSplit as $unitLog) {
+                            $logSplit = explode("/", $unitLog);
 
-                    $strSplit = explode(",", $log);
-
-                    foreach ($strSplit as $unitLog) {
-                        $logSplit = explode("/", $unitLog);
-
-                        if ($unitLog == end($strSplit)) {
-                            break;
-                        }
-
-                    ?>
+                            if ($unitLog == end($strSplit)) {
+                                break;
+                            }
+                        ?>
                     <tr>
                         <td> <?php echo $logSplit[3] ?> </td>
                         <td> <?php echo $logSplit[1] . " " . $logSplit[2] ?> </td>
