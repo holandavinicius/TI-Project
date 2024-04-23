@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once($_SERVER["DOCUMENT_ROOT"]."/ti/helpers/users_authentication.php");
+require_once($_SERVER["DOCUMENT_ROOT"].'/ti/helpers/users_authentication.php');
 
 $userVerification = new UserAuthentication(); 
 $users = $userVerification->readUsers();
@@ -41,7 +41,7 @@ $users = $userVerification->readUsers();
             <label for="passwordInput" class="form-label">Password:</label>
             <input type="password" placeholder="Insert your password" class="form-control" id="password" aria-describedby="passwordHelp" name="password" required>
         </div>
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center mb-3">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
         <?php if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['username']) && isset($_POST['password'])) {
@@ -50,7 +50,7 @@ $users = $userVerification->readUsers();
                 header("Location: dashboard.php");
                 exit;
             } else {
-                echo "Username ou Password incorretos.";
+                echo 'Username ou Password incorretos.';
             }
         }
         ?>

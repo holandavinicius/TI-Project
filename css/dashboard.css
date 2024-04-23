@@ -31,27 +31,13 @@ body {
     }
 }
 
-#imgDashboard {
+.imgDashboard {
     margin-top: 30px;
 }
 
-
-a:link {
+.btn.btn-primary{
     color: black;
-    text-decoration: none; 
-  } 
-  a:visited { 
-    color: black;
-    text-decoration: none; 
-  } 
-  a:hover { 
-    color: black;
-    text-decoration: none; 
-  } 
-  a:active { 
-    color: black;
-    text-decoration: none; 
-  }
+}
 
 #menu {
     display: flex;
@@ -115,7 +101,7 @@ nav{
    margin-top: 30px;
 }
 
-#imgDashboard{
+.imgDashboard{
     max-width: 100%;
     height: auto;
 }
@@ -144,18 +130,12 @@ nav{
 
     border-top-color: rgba(255,255,255,0.3);
     border-left-color: rgba(255,255,255,0.3);
-    border-bottom-color: rgba(255,255,255,0.1);
-    border-right-color: rgba(255,255,255,0.1);
 }
 
 .card:not(#table):hover{
     transform: scale(1.06);
 }
 
-.dropdown>.dropdown-toggle:active {
-    /*Without this, clicking will make it sticky*/
-      pointer-events: none;
-}
 
 .dropdown:hover>.dropdown-menu {
     display: block;

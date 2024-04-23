@@ -70,23 +70,23 @@ $aTrayActuadorData = $deviceService->ProcessDataGet(AEsteiraTabuleiros);
                 </a>
             </div>
             <div class="menu-item d-sm-flex align-items-center">
-                <a href="profile.php" class="d-none d-sm-flex align-items-center text-decoration-none">
-                    <img src="./src/person.svg" id="userLogo">
+                <a href="#" class="d-none d-sm-flex align-items-center text-decoration-none">
+                    <img src="./src/person.svg" id="userLogo" alt="UserLogo">
                     <p class="d-none d-sm-block m-0"><?php echo $_SESSION['username'] ?></p>
                 </a>
             </div>
-            <div class="dropdown d-sm-none align-items-center d-flex">
+            <div class="dropdown d-sm-none align-items-center mt-2">
                 <button
                     data-mdb-button-init data-mdb-ripple-init data-mdb-dropdown-init class="btn btn-primary-outline dropdown-toggle"
                     type="button"
                     id="dropdownMenuButton"
                     data-mdb-toggle="dropdown"
-                    aria-expanded="false"
+                    aria-expanded="true"
                 >
-                    <img src="./src/person.svg" id="userLogo">
+                    <img src="./src/person.svg" id="dropdown-userLogo" alt="UserLogo dropdown">
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="profile.php"><?php echo $_SESSION['username'] ?></a></li>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#"><?php echo $_SESSION['username'] ?></a></li>
                     <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                 </ul>
             </div>
@@ -104,12 +104,14 @@ $aTrayActuadorData = $deviceService->ProcessDataGet(AEsteiraTabuleiros);
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
                 <div class="card text-center">
-                    <img id="imgDashboard" src="./images/temperature.svg" style="width: auto; height: 150px;">
+                    <img class="imgDashboard" src="./images/temperature.svg" style="width: auto; height: 150px;" alt="dashboard img">
                     <div class="card-body border-0">
                         <div class="card-title">Temperatura</div>
                         <span class="badge rounded-pill text-bg-warning mb-10"><?php echo $sTempSensorData->getValue().'Cº'?></span>
                         <p class="mt-3"><?php echo $sTempSensorData->getTime()?></p>
-                        <button class="btn btn-primary"><a href="historico.php?nome=temperatura">Historico</a></button>
+                        <a href="historico.php?nome=temperatura">
+                            <button class="btn btn-primary">Historico</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -117,12 +119,14 @@ $aTrayActuadorData = $deviceService->ProcessDataGet(AEsteiraTabuleiros);
 
             <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
             <div class="card text-center">
-                    <img id="imgDashboard" src="./images/humidity.svg" style="width: auto; height: 150px;">
+                    <img class="imgDashboard" src="./images/humidity.svg" style="width: auto; height: 150px;" alt="dashboard img">
                     <div class="card-body border-0">
                         <div class="card-title">Humidade</div>
                         <span class="badge rounded-pill text-bg-warning mb-10"><?php echo $sHumiditySensorData->getValue()?></span>
                         <p class="mt-3"><?php echo $sHumiditySensorData->getTime()?></p>
-                        <button class="btn btn-primary"><a href="historico.php?nome=temperatura">Historico</a></button>
+                        <a href="historico.php?nome=temperatura">
+                            <button class="btn btn-primary">Historico</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -130,12 +134,14 @@ $aTrayActuadorData = $deviceService->ProcessDataGet(AEsteiraTabuleiros);
 
             <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
             <div class="card text-center">
-                    <img id="imgDashboard" src="./images/light.svg" style="width: auto; height: 150px;">
+                    <img class="imgDashboard" src="./images/light.svg" style="width: auto; height: 150px;" alt="dashboard img">
                     <div class="card-body border-0">
                         <div class="card-title">Luminosidade</div>
                         <span class="badge rounded-pill text-bg-warning mb-10"><?php echo $sLightSensorData->getValue()?></span>
                         <p class="mt-3"><?php echo $sLightSensorData->getTime()?></p>
-                        <button class="btn btn-primary"><a href="historico.php?nome=temperatura">Historico</a></button>
+                        <a href="historico.php?nome=temperatura">
+                            <button class="btn btn-primary">Historico</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -144,34 +150,40 @@ $aTrayActuadorData = $deviceService->ProcessDataGet(AEsteiraTabuleiros);
         <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
             <div class="card text-center">
-                    <img id="imgDashboard" src="./images/gate.svg" style="width: auto; height: 150px;">
+                    <img class="imgDashboard" src="./images/gate.svg" style="width: auto; height: 150px;" alt="dashboard img">
                     <div class="card-body border-0">
                         <div class="card-title">Cancela</div>
                         <span class="badge rounded-pill text-bg-warning mb-10"><?php echo $aBarrierActuadorData->getValue()?></span>
                         <p class="mt-3"><?php echo $aBarrierActuadorData->getTime()?></p>
-                        <button class="btn btn-primary"><a href="historico.php?nome=temperatura">Historico</a></button>
+                        <a href="historico.php?nome=temperatura">
+                            <button class="btn btn-primary">Historico</button>
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
                 <div class="card text-center">
-                    <img id="imgDashboard" src="./images/door.svg" style="width: auto; height: 150px;">
+                    <img class="imgDashboard" src="./images/door.svg" style="width: auto; height: 150px;" alt="dashboard img">
                     <div class="card-body border-0">
                         <div class="card-title">Porta Automática</div>
                         <span class="badge rounded-pill text-bg-warning mb-10"><?php echo $aDoorActuadorData->getValue()?></span>
                         <p class="mt-3"><?php echo $sTempSensorData->getTime()?></p>
-                        <button class="btn btn-primary"><a href="historico.php?nome=temperatura">Historico</a></button>
+                        <a href="historico.php?nome=temperatura">
+                            <button class="btn btn-primary">Historico</button>
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
             <div class="card text-center">
-                    <img id="imgDashboard" src="./images/belt.svg" style="width: auto; height: 150px;">
+                    <img class="imgDashboard" src="./images/belt.svg" style="width: auto; height: 150px;" alt="dashboard img">
                     <div class="card-body border-0">
                         <div class="card-title">Esteira de Tabuleiros</div>
                         <span class="badge rounded-pill text-bg-warning mb-10"><?php echo $aTrayActuadorData->getValue()?></span>
                         <p class="mt-3"><?php echo $aTrayActuadorData->getTime()?></p>
-                        <button class="btn btn-primary"><a href="historico.php?nome=temperatura">Historico</a></button>
+                        <a href="historico.php?nome=temperatura">
+                            <button class="btn btn-primary">Historico</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -191,20 +203,20 @@ $aTrayActuadorData = $deviceService->ProcessDataGet(AEsteiraTabuleiros);
                     </thead>
                     <tbody>
                         <tr>
-                            <td><?php echo $sTempSensorData->getName()?> </td>
+                            <td><?php echo $sTempSensorData->getName()?></td>
                             <td><?php echo $sTempSensorData->getValue()?></td>
                             <td><?php echo $sTempSensorData->getTime()?></td>
                             <td><span class="badge rounded-pill text-bg-warning">Primary</span></td>
                         </tr>
                         <tr>
-                            <td><?php echo $sHumiditySensorData->getName()?> </td>
+                            <td><?php echo $sHumiditySensorData->getName()?></td>
                             <td><?php echo $sHumiditySensorData->getValue()?></td>
                             <td><?php echo $sHumiditySensorData->getTime()?></td>
                             <td><span class="badge rounded-pill text-bg-primary">Primary</span></td>
                         </tr>
 
                         <tr>
-                            <td><?php echo $sLightSensorData->getName()?> </td>
+                            <td><?php echo $sLightSensorData->getName()?></td>
                             <td><?php echo $sLightSensorData->getValue()?></td>
                             <td><?php echo $sLightSensorData->getTime()?></td>
                             <td><span class="badge rounded-pill text-bg-success">Primary</span></td>
@@ -214,12 +226,10 @@ $aTrayActuadorData = $deviceService->ProcessDataGet(AEsteiraTabuleiros);
             </div>
         </div>
     </div>
-
 </body>
 <footer>
     <br>
 </footer>
 <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js" integrity="sha512-EyPOoMxFbQO2TPi8ZBLwmUzSBrNalwSZaIHT2jq0/B5kr8n3yIn3Yke6TCC4D/dCnUC8l1Twd9NAlxMLIDQG6g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </html>
