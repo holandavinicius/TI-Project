@@ -59,11 +59,17 @@ if (!isset($_SESSION['username'])) {
                     <p class="d-none d-sm-block m-0"><?php echo $_SESSION['username'] ?></p>
                 </a>
             </div>
-            <div class="dropdown d-sm-none align-items-center d-flex">
-                <button data-mdb-button-init data-mdb-ripple-init data-mdb-dropdown-init class="btn btn-primary-outline dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
-                    <img src="./src/person.svg" id="userLogo-dropdown" alt="dropdown userLogo">
+            <div class="dropdown d-sm-none align-items-center mt-2">
+                <button
+                    data-mdb-button-init data-mdb-ripple-init data-mdb-dropdown-init class="btn btn-primary-outline dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="true"
+                >
+                    <img src="./src/person.svg" id="dropdown-userLogo" alt="UserLogo dropdown">
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="#"><?php echo $_SESSION['username'] ?></a></li>
                     <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                 </ul>
