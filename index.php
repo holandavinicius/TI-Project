@@ -9,12 +9,23 @@ $users = $userVerification->readUsers();
 
 ?>
 
+<?php
 
+session_start();
+
+require_once($_SERVER["DOCUMENT_ROOT"]."/ti/helpers/users_authentication.php");
+
+
+$userVerification = new UserAuthentication(); 
+$users = $userVerification->readUsers();
+
+?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-
+    
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
@@ -29,19 +40,18 @@ $users = $userVerification->readUsers();
 
 <body>
     <div class="container">
-            <img class="logoImg img-fluid" src="./src/logo.svg">
+            <img class="logoImg img-fluid" src="./src/logo.svg" alt="logo">
     </div>
-    <!-- Form -->
-    <form action="" method="post">
+    <form method="post">
         <div class="mb-3">
-            <label for="usernameInput" class="form-label">Username:</label>
+            <label for="username" class="form-label">Username:</label>
             <input type="text" placeholder="Insert your username" class="form-control" id="username" name="username" required>
         </div>
         <div class="mb-4">
-            <label for="passwordInput" class="form-label">Password:</label>
-            <input type="password" placeholder="Insert your password" class="form-control" id="password" aria-describedby="passwordHelp" name="password" required>
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" placeholder="Insert your password" class="form-control" id="password" aria-label="form-control" name="password" required>
         </div>
-        <div class="d-flex justify-content-center mb-3">
+        <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
         <?php if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['username']) && isset($_POST['password'])) {
@@ -50,12 +60,11 @@ $users = $userVerification->readUsers();
                 header("Location: dashboard.php");
                 exit;
             } else {
-                echo 'Username ou Password incorretos.';
+                echo "Username ou Password incorretos.";
             }
         }
         ?>
     </form>
 </body>
-<script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </html>
