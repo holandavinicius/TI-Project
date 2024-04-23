@@ -7,7 +7,7 @@ class UserAuthentication
     public function readUsers()
     {
 
-        $file = fopen("../TI-Project/users.txt", "r");
+        $file = fopen("../ti/users.txt", "r");
         $data = array();
 
         while (!feof($file)) {

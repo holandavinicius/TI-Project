@@ -21,7 +21,7 @@ class DeviceDataService implements DeviceDataInterface {
         file_put_contents($path."/valor.txt",$_deviceData->getValue(), FILE_TEXT);
         file_put_contents($path."/hora.txt",$_deviceData->getTime(), FILE_TEXT);
 
-        $log = "nome: ".$_deviceData->getName()." hora:".date("Y-m-d").date("h:i:sa")." valor:".$_deviceData->getValue().",";
+        $log = $_deviceData->getName()."/".date("Y-m-d")."/".date("h:i:sa")."/".$_deviceData->getValue().",";
         
         file_put_contents($path."/log.txt",   $log.PHP_EOL, FILE_APPEND);
 

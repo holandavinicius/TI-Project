@@ -17,7 +17,8 @@ $users = $userVerification->readUsers();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Index</title>
+    <link rel="icon" href="./src/logo.svg">
     <link rel="stylesheet" href="./css/loginpage.css">
     <meta http-equiv="refresh" content="60">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -28,9 +29,7 @@ $users = $userVerification->readUsers();
 
 <body>
     <div class="container">
-        <div>
-            <img class="logoImg" src="./src/logo.svg">
-        </div>
+            <img class="logoImg img-fluid" src="./src/logo.svg">
     </div>
     <!-- Form -->
     <form action="" method="post">

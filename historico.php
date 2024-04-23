@@ -7,7 +7,14 @@ require_once ($_SERVER["DOCUMENT_ROOT"]."/ti/api/device_data_service.php");
 
 $device = $_GET['nome'];
 
+session_start();
 
+
+
+if (!isset($_SESSION['username'])) {
+    header("refresh:60;url=index.php");
+    die("Access denied.");
+}
 
 ?>
 
@@ -18,7 +25,8 @@ $device = $_GET['nome'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Histórico</title>
+    <link rel="icon" href="./src/logo.svg">
     <link rel="stylesheet" href="./css/dashboard.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -31,76 +39,83 @@ $device = $_GET['nome'];
 </head>
 
 <body>
-    <nav class="d-flex">
-        <!-- Logo -->
-        <div id="logo">
+<nav class="d-flex">
+        <div class="menu-item" id="logo">
             <a href="dashboard.php">
                 <img id="img" src="./src/logo.svg" alt="Logo">
             </a>
         </div>
-
-        <!-- Menu Items -->
         <div id="menu">
-            <!-- Menu Introduction -->
-            <div class="menu-item menu-item-active">
-                <a href="dashboard.php">
-                    Home
-                </a>
-            </div>
-            <!-- Courses -->
             <div class="menu-item">
-                <a href="historico.php">
-                    Histórico
-                </a>
+                <a href="dashboard.php">Home</a>
             </div>
         </div>
-        <!-- User -->
         <div id="user">
-            <div class="menu-item">
+            <div class="menu-item d-none d-sm-block">
                 <a href="logout.php" class="me-5">
                     Logout
                 </a>
-                <a href="profile.php">
+            </div>
+            <div class="menu-item d-sm-flex align-items-center">
+                <a href="profile.php" class="d-none d-sm-flex align-items-center text-decoration-none">
                     <img src="./src/person.svg" id="userLogo">
+                    <p class="d-none d-sm-block m-0"><?php echo $_SESSION['username'] ?></p>
                 </a>
+            </div>
+            <div class="dropdown d-sm-none align-items-center d-flex">
+                <button
+                    data-mdb-button-init data-mdb-ripple-init data-mdb-dropdown-init class="btn btn-primary-outline dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+                >
+                    <img src="./src/person.svg" id="userLogo">
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="profile.php"><?php echo $_SESSION['username'] ?></a></li>
+                    <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                </ul>
             </div>
         </div>
     </nav>
 
-
-
     <div class="row justify-content-center">
-        <div class="col-10 mt-5">
-            <div class="card text-center">
-                <div class="card-header">
-                    <h3>Histórico: <?php echo ucfirst($device) ?></h3>
-                </div>
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Descrição</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $deviceDataService = new DeviceDataService();
-                            // echo $device;
-                            $resultData = $deviceDataService->ProcessDataGet($device);
+        <div class="col-sm-12 col-md-8 mt-5">   
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Data de Atualização</th>
+                        <th scope="col">Estado de Alertas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $deviceDataService = new DeviceDataService();
+                    // echo $device;
+                    $resultData = $deviceDataService->ProcessDataGet($device);
 
-                            $log = $resultData->getLog();
+                    $log = $resultData->getLog();
 
-                            $strSplit = explode(",", $log);
+                    $strSplit = explode(",", $log);
 
-                            foreach ($strSplit as $unitLog) { ?>
-                                <tr>
-                                    <td> <?php echo $unitLog ?> </td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                    foreach ($strSplit as $unitLog) {
+                        $logSplit = explode("/",$unitLog);
+                        
+                        if($unitLog == end($strSplit)){
+                            break;
+                        }
+
+                        ?>
+                        <tr>
+                            <td> <?php echo $logSplit[3] ?> </td>
+                            <td> <?php echo $logSplit[1]." ".$logSplit[2]?> </td>
+                            <td><span class="badge rounded-pill text-bg-success">OK</span></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>
