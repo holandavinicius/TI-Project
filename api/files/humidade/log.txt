@@ -1,4 +1,2 @@
-nome: Humidade hora:2024-04-2108:56:11pm valor:15mm,
-nome: Humidade hora:2024-04-2108:56:11pm valor:20mm,
-nome: Humidade hora:2024-04-2108:56:11pm valor:10mm,
-nome: Humidade hora:2024-04-2108:56:11pm valor:5mm
+Humidade/2024-04-21/08:51:38pm/10mm,
+Humidade/2024-04-21/08:51:38pm/15mm,
