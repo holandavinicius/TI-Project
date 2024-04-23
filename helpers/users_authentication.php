@@ -3,7 +3,9 @@
 class UserAuthentication
 {
 
-
+    /*
+        Função responsável por ler os usuários a partir do ficheiro txt, devolve um array de string contendo os usuários.
+    */
     public function readUsers()
     {
 
@@ -19,7 +21,6 @@ class UserAuthentication
         }
 
         fclose($file);
-
 
         return $data;
     }
