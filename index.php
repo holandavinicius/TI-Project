@@ -2,24 +2,14 @@
 
 session_start();
 
-require_once($_SERVER["DOCUMENT_ROOT"].'/ti/helpers/users_authentication.php');
+require_once($_SERVER['DOCUMENT_ROOT']."/helpers/users_authentication.php");
 
 $userVerification = new UserAuthentication(); 
 $users = $userVerification->readUsers();
 
 ?>
 
-<?php
 
-session_start();
-
-require_once($_SERVER["DOCUMENT_ROOT"]."/ti/helpers/users_authentication.php");
-
-
-$userVerification = new UserAuthentication(); 
-$users = $userVerification->readUsers();
-
-?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">

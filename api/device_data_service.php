@@ -1,14 +1,14 @@
 <?php
 
 
-require_once($_SERVER["DOCUMENT_ROOT"]."/ti/api/device_data_interface.php");
-require_once($_SERVER["DOCUMENT_ROOT"]."/ti/api/device_data_model.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/api/device_data_interface.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/api/device_data_model.php");
 
 
 
 class DeviceDataService implements DeviceDataInterface {
     
-    CONST RelativePath = '/ti/api/files/';
+    CONST RelativePath = '/api/files/';
 
 
     /*

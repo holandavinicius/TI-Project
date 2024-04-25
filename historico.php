@@ -1,9 +1,9 @@
 <?php
 
 
-require_once($_SERVER["DOCUMENT_ROOT"] . "/ti/api/device_data_interface.php");
-require_once($_SERVER["DOCUMENT_ROOT"] . "/ti/api/device_data_model.php");
-require_once($_SERVER["DOCUMENT_ROOT"] . "/ti/api/device_data_service.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/api/device_data_interface.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/api/device_data_model.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/api/device_data_service.php");
 
 $device = $_GET['nome'];
 
