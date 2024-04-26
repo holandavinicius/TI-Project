@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $valor = $_POST["valor"];
     $hora = $_POST["hora"]; 
 
-  
     $deviceDataModel = new DeviceDataModel($nome,$hora,$valor);
 
     $deviceService = new DeviceDataService();
@@ -29,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $deviceService = new DeviceDataService();
     $deviceDataModel = $deviceService->ProcessDataGet($device);
     
-    // print_r(json_encode((array)$deviceDataModel));
+
     print_r($deviceDataModel->getValue());
 
 } else {
