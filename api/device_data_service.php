@@ -1,14 +1,12 @@
 <?php
 
 
-require_once($_SERVER["DOCUMENT_ROOT"]."/api/device_data_interface.php");
-require_once($_SERVER["DOCUMENT_ROOT"]."/api/device_data_model.php");
+require_once("device_data_model.php");
 
 
-
-class DeviceDataService implements DeviceDataInterface {
+class DeviceDataService {
     
-    CONST RelativePath = '/api/files/';
+    CONST RelativePath = __DIR__."/files/";
 
 
     /*
@@ -17,7 +15,7 @@ class DeviceDataService implements DeviceDataInterface {
     */
     public function ProcessDataPost(DeviceDataModel $_deviceData){
 
-        $path = $_SERVER["DOCUMENT_ROOT"].self::RelativePath;
+        $path = self::RelativePath;
         
         
         $path = $path.strtolower($_deviceData->getName());    
@@ -41,9 +39,8 @@ class DeviceDataService implements DeviceDataInterface {
     */
     public function ProcessDataGet($device) : DeviceDataModel{
 
-        $path = $_SERVER["DOCUMENT_ROOT"].self::RelativePath.strtolower($device);
+        $path = self::RelativePath.strtolower($device);
 
-       
 
         $name = file_get_contents($path."/nome.txt",false);
         $value = file_get_contents($path."/valor.txt", false);
