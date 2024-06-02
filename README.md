@@ -7,7 +7,7 @@ This repository will contain all files of TI project.
 
 
 
-<h2> TASKS PART 2 (Due:Saturday, 15 June 2024, 11:59 PM) : </h2>
+<h2> TASKS PART 1 (Due: Sunday, 23 April 2023, 11:59 PM) : </h2>
 
 -----------------------------------------------------------------
 
@@ -20,25 +20,25 @@ Password: LKuGjS6xdvDc	<br>
 -----------------------------------------------------------------
 
 
-Na entrega 2 deverá entregar os seguintes elementos:
+- [x] Código isento de warnings e erros;<br>
+- [x] Comprovativo de validação (entrega de printscreen em PDF);
+- [x] API para recolha e envio de informações, com as respetiva validações, seguindos boas práticas de desenvolvimento web. <br>
+- [x] Página de autenticação, com peelo **menos 2 utilizadores**, estando as credenciais (usernames e passwords) num ficheiro à parte do restante do código.<br>
+- [x] Página de histórico para cada sensor e atuador;
+- [x] Página de dashboard personalizada de acordo com o tema, e preparada para pelo menos 3 sensores e 3 atuadores;<br>
+- [x] Design apelativo e responsive utilizando Bootstrap (framework CSS);<br>
+- [x] Pelo menos 1 ficheiro CSS, com pelo menos 10 selectores CSS, desenvolvido pelos estudantes com o seu design personalizado do website de acordo com o tema escolhido;<br>
+- [x] Código desenvolvido e devidamente comentado;<br>
+<br><br>
 
-- [ ] Código da página web em HTML, CSS, JavaScript e PHP, devidamente comentado;
-- [ ] Código Python do SBC, devidamente comentado;
-- [ ] Código C do MCU, devidamente comentado;
-- [ ] Ficheiro Cisco Packet Tracer. (opcional) O código desenvolvido deve estar devidamente comentado;
-- [ ] Vídeo simples com a demonstração das potencialidades do protótipo (no máximo 100 MB) (opcional mas altamente recomendado);
-Dica: Site para comprimir ficheiros de vídeo: https://www.videosmaller.com/
-- [ ] Relatório escrito onde deve estar toda a informação relevante do Projeto, as decisões mais importantes, esquemas da solução, esquemas de rede e esquema de blocos da arquitetura IoT. Deve ser utilizado o template disponível na página da UC.
-- [ ] O relatório deve ser disponibilizado apenas em formato digital PDF e ter a seguinte estrutura:
-   1. Objetivos, com o possível enquadramento da solução numa situação real concreta;
-   2. Descrição e arquitetura da solução e os equipamentos usados;
-   3. Implementação (aspetos mais importantes);
-   4. Cenário de teste;
-   5. Resultados obtidos;
-   6. Conclusão (análise da solução, potencialidades e pontos a melhorar);
-   7.Bibliografia;
-
-nome do ficheiro: TI_NumAluno1_NumAluno2.zip
+-  Todos os ficheiros necessários para o bom funcionamento da API;<br>
+-  Todos os ficheiros necessários para o bom funcionamento da dashboard;<br>
+-  Os ficheiros PDF que servem de comprovativo à verificação realizada de erros/warnings no código HTML e CSS.<br>
 
 
-![image](https://github.com/dhiegoferreira/smart-campi-A1S2TI/assets/53379935/3c4ad8cf-e152-4802-8731-d8edcedef9f7)
+<br> 
+Link da Entrega: https://ead.ipleiria.pt/2023-24/mod/assign/view.php?id=101980
+<br> 
+<br> 
+OBS.: Todo os ficheiros de código HTML e CSS deverão estar a executar no servidor da UC (iot.dei.estg.ipleiria.pt) no respetivo endereço do grupo de projeto. 
+<br><br>
