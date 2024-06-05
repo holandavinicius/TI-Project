@@ -140,6 +140,12 @@ nav{
 
 .dropdown:hover>.dropdown-menu {
     display: block;
+    
+}
+
+.dropdown-menu {
+    position: absolute;
+    left: -73px;
 }
 
 .dropdown>.dropdown-toggle:active {
