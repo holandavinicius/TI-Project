@@ -53,7 +53,20 @@ class DeviceDataService {
     }
 
     
+    public function ValidateDevice($deviceName) : bool {
+        $isValid = false;
+
+
+        foreach(self::RelativePath  as $fileinfo){
+            if($fileinfo->isDir() && !$fileinfo->isDot()){
+                 echo $fileinfo->getFile().PHP_EOL;
+                 $isValid = true;
+            }
+        }
+
+
+        return $isValid;
+    }
 
 
 }
-

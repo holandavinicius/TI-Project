@@ -35,7 +35,14 @@ class DeviceDataModel {
 
     
     public function getValue(){
-        return $this->value;
+        if(is_numeric(($this->value))){
+            $this->value = number_format($this->value,2,'.');
+            return $this->value;
+        } else {
+
+            return $this->value;
+        }
+        
     }
 
     public function getTime(){
