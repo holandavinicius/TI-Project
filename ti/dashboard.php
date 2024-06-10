@@ -15,60 +15,76 @@ if (!isset($_SESSION['username'])) {
 }
 
 
+const STemperatura = "temperatura";
+const SLuminosidade = "luminosidade";
+const SHumidade = "humidade";
+const ACancelaSinalizacao = "cancela";
+const APortaAutomatica = "porta";
+const AEsteiraTabuleiros = "esteira";
 
-$directory = "./api/files/";
-
-$dataDevicesArray = iterateDirectory($directory);
+$deviceService = new DeviceDataService();
 
 
-function iterateDirectory($directory){
-    // Get the list of files and directories
-    $items = scandir($directory);
+$sTempSensorData = $deviceService->ProcessDataGet(STemperatura);
+$sLightSensorData = $deviceService->ProcessDataGet(SLuminosidade);
+$sHumiditySensorData = $deviceService->ProcessDataGet(SHumidade);
 
-    // Iterate through each item
-    foreach ($items as $item) {
-        // Skip the current directory and parent directory
-        if ($item == '.' || $item == '..') {
-            continue;
-        }
 
-        // Get the full path of the item
-        $path = $directory . DIRECTORY_SEPARATOR . $item;
+$aBarrierActuadorData = $deviceService->ProcessDataGet(ACancelaSinalizacao);
+$aDoorActuadorData = $deviceService->ProcessDataGet(APortaAutomatica);
+$aTrayActuadorData = $deviceService->ProcessDataGet(AEsteiraTabuleiros);
 
-        // Check if the item is a directory
-        if (is_dir($path)) {
-            // Define the file paths
-            $horaPath = $path . DIRECTORY_SEPARATOR . 'hora.txt';
-            $valorPath = $path . DIRECTORY_SEPARATOR . 'valor.txt';
-            $nomePath = $path . DIRECTORY_SEPARATOR . 'nome.txt';
+
+// $directory = "./api/files/";
+
+// $dataDevicesArray = iterateDirectory($directory);
+
+// function iterateDirectory($directory){
+//     // Get the list of files and directories
+//     $items = scandir($directory);
+
+//     // Iterate through each item
+//     foreach ($items as $item) {
+//         // Skip the current directory and parent directory
+//         if ($item == '.' || $item == '..') {
+//             continue;
+//         }
+
+//         // Get the full path of the item
+//         $path = $directory . DIRECTORY_SEPARATOR . $item;
+
+//         // Check if the item is a directory
+//         if (is_dir($path)) {
+//             // Define the file paths
+//             $horaPath = $path . DIRECTORY_SEPARATOR . 'hora.txt';
+//             $valorPath = $path . DIRECTORY_SEPARATOR . 'valor.txt';
+//             $nomePath = $path . DIRECTORY_SEPARATOR . 'nome.txt';
             
 
-            // Check if the files exist and read their contents
-            if (is_file($horaPath) && is_file($valorPath) && is_file($nomePath)) {
-                $hora = file_get_contents($horaPath);
-                $valor = file_get_contents($valorPath);
-                $nome = file_get_contents($nomePath);
-                $image = 
-                $dataArray[] = new DeviceDataModel($nome, $hora, $valor);;
+//             // Check if the files exist and read their contents
+//             if (is_file($horaPath) && is_file($valorPath) && is_file($nomePath)) {
+//                 $hora = file_get_contents($horaPath);
+//                 $valor = file_get_contents($valorPath);
+//                 $nome = file_get_contents($nomePath);
+    
+//                 $dataArray[] = new DeviceDataModel($nome, $hora, $valor);;
 
                
-            }
-        }
-    }
+//             }
+//         }
+//     }
 
 
-    return $dataArray;
+//     return $dataArray;
 
 
-}
+// }
 
-
-// Debug
-function function_alert($message) { 
-      
-    // Display the alert box  
-    echo "<script>alert('$message');</script>"; 
-} 
+// // Debug
+// function function_alert($message) { 
+//     // Display the alert box  
+//     echo "<script>alert('$message');</script>"; 
+// } 
 
 
 ?>
@@ -149,32 +165,46 @@ function function_alert($message) {
 
 
     <div class="container">
-        <div class="row">
+        <!-- <div class="row">
 
             <?php
-                foreach($dataDevicesArray as $item){
+                // foreach($dataDevicesArray as $item){
                     // $image = '';
 
-                    echo 
-                    '<div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
-                        <div class="card text-center" id=card-'.$item->getName().'>
-                            <img class="card-header" src="./images/temperature.svg" style="width: auto; height: 150px;"
-                                alt="dashboard img">
-                            <div class="card-body border-0">
-                                <div class="card-title">$item.</div>
-                                <span
-                                    class="badge rounded-pill text-bg-warning mb-10"><?php echo '.$item->getValue().' ?></span>
-                                    <p class="mt-3"><?php echo '.$item->getName().'?></p>
-                                    <a class="btn btn-primary" href="historico.php?nome='.$item->getName().'"> Histórico</a>
-                            </div>
-                        </div>
-                    </div>';
+                //     echo 
+                //     '<div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
+                //         <div class="card text-center" id=card-'.$item->getName().'>
+                //             <img class="card-header" src="./images/temperature.svg" style="width: auto; height: 150px;"
+                //                 alt="dashboard img">
+                //             <div class="card-body border-0">
+                //                 <div class="card-title">'.$item->getName().'</div>
+                //                 <span
+                //                     class="badge rounded-pill text-bg-warning mb-10"><?php echo '.$item->getValue().'?></span>
+                //                     <p class="mt-3"><?php 
+                // echo '.$item->getTime().'?></p>
+                //                     <a class="btn btn-primary" href="historico.php?nome='.$item->getName().'"> Histórico</a>
+                //             </div>
+                //         </div>
+                //     </div>';
+ 
+                // }
+            ?> -->
 
-                }
-            ?>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
+                <div class="card text-center">
+                    <img class="imgDashboard" src="./images/temperature.svg" style="width: auto; height: 150px;"
+                        alt="dashboard img">
+                    <div class="card-body border-0">
+                        <div class="card-title">Temperatura</div>
+                        <span
+                            class="badge rounded-pill text-bg-warning mb-10"><?php echo $sTempSensorData->getValue() . 'Cº' ?></span>
+                        <p class="mt-3"><?php echo $sTempSensorData->getTime() ?></p>
+                        <a class="btn btn-primary" href="historico.php?nome=temperatura"> Histórico</a>
+                    </div>
+                </div>
+            </div>
 
-          
-<!-- 
 
             <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
                 <div class="card text-center">
@@ -254,11 +284,8 @@ function function_alert($message) {
 
                     </div>
                 </div>
-            </div> -->
-
-
-
-<!--             
+            </div>
+        
             <div class="row justify-content-center m-0">
                 <div class="col-sm-12 col-md-8 mt-5">
                     <table class="table table-borderless">
@@ -293,55 +320,9 @@ function function_alert($message) {
                         </tbody>
                     </table>
                 </div>
-            </div> -->
+            </div> 
         </div>
     </div>
-
-     <!-- Scrip Imports -->
-     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            // Função para atualizar os cards
-            function updateCards() {
-                $.ajax({
-                    url: 'api/api.php', // URL da sua API
-                    type: 'GET',
-                    dataType: 'json',
-
-
-                    success: function(response) {
-
-                        for (var key in response) {
-                            if (response.hasOwnProperty(key)) {
-                                var cardData = response[key];
-                                console.log(cardData); // Exibe o objeto cardData no console
-
-                                var card = $('#card-' + cardData.id);
-                                card.find(".card-footer span").text(cardData.time);
-                                card.find(".card-header span").text(cardData.value);
-                                card.find(".image").attr("src", cardData.image);
-                            }
-                        }
-                        // Atualiza cada card com os dados recebidos
-
-
-                    },
-                    error: function() {
-                        alert('Ocorreu um erro ao atualizar os cards.');
-                    }
-                });
-            }
-
-            // Chama a função de atualização em intervalos de tempo regulares (por exemplo, a cada 5 segundos)
-            $(document).ready(function() {
-                setInterval(function() {
-                    updateCards();
-                }, 5000); // Intervalo em milissegundos (5 segundos neste exemplo)
-            });
-        </script>
 </body>
 
 </html>

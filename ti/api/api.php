@@ -37,11 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
 
-    if(!$deviceService->ValidateDevice($_GET["nome"])){
-        http_response_code(400);
-        die($_GET["nome"]." is not a valid device.");
+    // if(!$deviceService->ValidateDevice($_GET["nome"])){
+    //     http_response_code(400);
+    //     die($_GET["nome"]." is not a valid device.");
 
-    }
+    // }
 
     //verify if nome=value exists.
     $device = $_GET["nome"];

@@ -39,7 +39,6 @@ class DeviceDataModel {
             $this->value = number_format($this->value,2,'.');
             return $this->value;
         } else {
-
             return $this->value;
         }
         
