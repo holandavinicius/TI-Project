@@ -47,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $device = $_GET["nome"];
     $deviceDataModel = $deviceService->ProcessDataGet($device);
 
+    
+
 
     print_r($deviceDataModel->getValue());
 
