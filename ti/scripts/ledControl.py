@@ -1,10 +1,6 @@
 import time
 import requests
-import time
 import RPi.GPIO as GPIO
-import datetime
-
-
 
 print("Prima CTRL+C para terminar")
 
@@ -21,6 +17,7 @@ while(True):
             break
 
         GPIO.setmode(GPIO.BCM)
+
         channel = 2
 
         GPIO.setup(channel,GPIO.OUT)
@@ -28,22 +25,11 @@ while(True):
         high = 1
         low = 0
 
-        hora = datetime.datetime.now()
-        nome = "luminosidade"
-        valor = '1'
-
-        
 
         if(int(temperatura)> 20):
-            GPIO.output(channel,high)
-            valor = '1'
-            payload = {'nome' :  nome ,'valor': valor , 'hora' : hora}
-            r = requests.post("https://iot.dei.estg.ipleiria.pt/ti/g170/api/api.php", data=payload)    
+            GPIO.output(channel, high)
         else:
-            GPIO.output(channel,low)
-            valor = '0'
-            payload = {'nome' :  nome ,'valor': valor , 'hora' : hora}
-            r = requests.post("https://iot.dei.estg.ipleiria.pt/ti/g170/api/api.php", data=payload)    
+            GPIO.output(channel, low)
         
         time.sleep(5)
 
