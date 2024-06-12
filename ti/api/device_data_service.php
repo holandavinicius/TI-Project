@@ -37,10 +37,11 @@ class DeviceDataService {
         Função ProcessDataPost: responsável por obter os dados da requisição GET, processa-los e será devolvido
         um object DeviceDataModel que representa os dados de cada ficheiro.
     */
+
+
     public function ProcessDataGet($device) : DeviceDataModel{
 
         $path = self::RelativePath.strtolower($device);
-
 
         $name = file_get_contents($path."/nome.txt",false);
         $value = file_get_contents($path."/valor.txt", false);
@@ -53,12 +54,14 @@ class DeviceDataService {
     }
 
     
-    public function ValidateDevice($deviceName) : bool {
+   /* public function ValidateDevice($deviceName) : bool {
         $isValid = false;
 
+        $paths = [];
+        $paths = $this->getFiles($path);
         
 
-        foreach(self::RelativePath as $fileinfo){
+        foreach($paths as $fileinfo){
             if($fileinfo->isDir() && !$fileinfo->isDot()){
                  echo $fileinfo->getFile().PHP_EOL;
                  $isValid = true;
@@ -66,6 +69,22 @@ class DeviceDataService {
         }
 
         return $isValid;
+    } */
+
+    public function ValidateDevice($deviceName) {
+        
+        $iterator = new DirectoryIterator(self::RelativePath);
+
+        
+        foreach ($iterator as $fileinfo) {
+            
+            if ($fileinfo->isDir() && !$fileinfo->isDot()) {
+                if(strcmp(strtolower($fileinfo->getFilename()),strtolower($deviceName)) === 0){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
- 
+
 }

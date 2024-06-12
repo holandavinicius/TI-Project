@@ -6,10 +6,10 @@ require_once("device_data_model.php");
 require_once("device_data_service.php");
 
 
-
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     $deviceService = new DeviceDataService();
+    
     
     //Parameters validation
     if(!isset($_POST["nome"]) || !isset($_POST["valor"]) || !isset($_POST["hora"])){
@@ -30,20 +30,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     $deviceService = new DeviceDataService();
     
+    
     //Parameters validation
     if(!isset($_GET["nome"])){
         http_response_code(400);
         die("There is a unassined value to nome property.");
     }
 
+    
 
     if(!$deviceService->ValidateDevice($_GET["nome"])){
         http_response_code(400);
         die($_GET["nome"]." is not a valid device.");
-
     }
-
     //verify if nome=value exists.
+    
+
     $device = $_GET["nome"];
     $deviceDataModel = $deviceService->ProcessDataGet($device);
 
