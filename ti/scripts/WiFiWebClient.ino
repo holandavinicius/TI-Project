@@ -69,7 +69,7 @@ void loop() {
 
   String enviaNome = "temperatura";
   String enviaValor = "38";
-
+  String enviaHora = "2024-05-03 12:32:00";
 
   String body = "nome="+enviaNome+"&valor="+enviaValor+"&hora="+enviaHora;
 

@@ -7,7 +7,9 @@ class DeviceDataModel {
     private $log;
     private $name;
     private $value;
-    private $imagePath;
+
+    private $imageFileName;
+
 
     public function __construct($name,$time,$value) {
         
@@ -18,7 +20,7 @@ class DeviceDataModel {
     }
    
 
-   
+  
 
     public function setLog($log){
         $this->log = $log;
@@ -41,23 +43,10 @@ class DeviceDataModel {
         } else {
             return $this->value;
         }
-        
     }
 
     public function getTime(){
         return $this->time;
     }
-
-
-    public function setImagePath($path){
-
-        
-        $this->imagePath = $path;
-    }
-
-    public function getImagePath(){
-        return $this->imagePath;
-    }
-
 
 }

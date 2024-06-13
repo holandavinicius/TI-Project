@@ -1,96 +1,43 @@
-<?php 
+<?php
 
 
 
-require_once(__DIR__ ."/api/device_data_model.php");
-require_once(__DIR__ ."/api/device_data_service.php");
+require_once (__DIR__ . "/api/device_data_model.php");
+require_once (__DIR__ . "/api/device_data_service.php");
 
 session_start();
 
 
 
 if (!isset($_SESSION['username'])) {
-    header("refresh:5;url=index.php");
+    header("refresh:60;url=index.php");
     die("Access denied.");
 }
 
 
-const STemperatura = "temperatura";
-const SLuminosidade = "luminosidade";
-const SHumidade = "humidade";
-const ACancelaSinalizacao = "cancela";
-const APortaAutomatica = "porta";
-const AEsteiraTabuleiros = "esteira";
+function ReturnFirstImageFileOfADirectory($directory)
+{
 
-$deviceService = new DeviceDataService();
+    // Search for PNG files in the directory
+    $files = glob($directory . '/*.{png,svg}', GLOB_BRACE);
 
+    // Check if there are any PNG files
+    if (count($files) > 0) {
+        // Get the first PNG file
+        $firstPngFile = $files[0];
 
-$sTempSensorData = $deviceService->ProcessDataGet(STemperatura);
-$sLightSensorData = $deviceService->ProcessDataGet(SLuminosidade);
-$sHumiditySensorData = $deviceService->ProcessDataGet(SHumidade);
+        // Output the file name or do something else with it
+        return basename($firstPngFile);
+    } else {
+        return null;
+    }
 
-
-$aBarrierActuadorData = $deviceService->ProcessDataGet(ACancelaSinalizacao);
-$aDoorActuadorData = $deviceService->ProcessDataGet(APortaAutomatica);
-$aTrayActuadorData = $deviceService->ProcessDataGet(AEsteiraTabuleiros);
-
-
-// $directory = "./api/files/";
-
-// $dataDevicesArray = iterateDirectory($directory);
-
-// function iterateDirectory($directory){
-//     // Get the list of files and directories
-//     $items = scandir($directory);
-
-//     // Iterate through each item
-//     foreach ($items as $item) {
-//         // Skip the current directory and parent directory
-//         if ($item == '.' || $item == '..') {
-//             continue;
-//         }
-
-//         // Get the full path of the item
-//         $path = $directory . DIRECTORY_SEPARATOR . $item;
-
-//         // Check if the item is a directory
-//         if (is_dir($path)) {
-//             // Define the file paths
-//             $horaPath = $path . DIRECTORY_SEPARATOR . 'hora.txt';
-//             $valorPath = $path . DIRECTORY_SEPARATOR . 'valor.txt';
-//             $nomePath = $path . DIRECTORY_SEPARATOR . 'nome.txt';
-            
-
-//             // Check if the files exist and read their contents
-//             if (is_file($horaPath) && is_file($valorPath) && is_file($nomePath)) {
-//                 $hora = file_get_contents($horaPath);
-//                 $valor = file_get_contents($valorPath);
-//                 $nome = file_get_contents($nomePath);
-    
-//                 $dataArray[] = new DeviceDataModel($nome, $hora, $valor);;
-
-               
-//             }
-//         }
-//     }
+}
 
 
-//     return $dataArray;
-
-
-// }
-
-// // Debug
-// function function_alert($message) { 
-//     // Display the alert box  
-//     echo "<script>alert('$message');</script>"; 
-// } 
 
 
 ?>
-
-
-
 
 
 <!DOCTYPE html>
@@ -100,6 +47,7 @@ $aTrayActuadorData = $deviceService->ProcessDataGet(AEsteiraTabuleiros);
     <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
         </script>
+    <!-- <meta http-equiv="refresh" content="5"> -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
@@ -112,7 +60,6 @@ $aTrayActuadorData = $deviceService->ProcessDataGet(AEsteiraTabuleiros);
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-
 
 </head>
 
@@ -154,9 +101,6 @@ $aTrayActuadorData = $deviceService->ProcessDataGet(AEsteiraTabuleiros);
         </div>
     </nav>
 
-
-
-
     <div class="container d-flex justify-content-around align-items-center" id="title">
         <div style="color: white; margin-top: 2rem;">
             <h1>Servidor IoT</h1>
@@ -165,164 +109,98 @@ $aTrayActuadorData = $deviceService->ProcessDataGet(AEsteiraTabuleiros);
 
 
     <div class="container">
-        <!-- <div class="row">
-
+        <div class="row">
             <?php
-                // foreach($dataDevicesArray as $item){
-                    // $image = '';
 
-                //     echo 
-                //     '<div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
-                //         <div class="card text-center" id=card-'.$item->getName().'>
-                //             <img class="card-header" src="./images/temperature.svg" style="width: auto; height: 150px;"
-                //                 alt="dashboard img">
-                //             <div class="card-body border-0">
-                //                 <div class="card-title">'.$item->getName().'</div>
-                //                 <span
-                //                     class="badge rounded-pill text-bg-warning mb-10"><?php echo '.$item->getValue().'?></span>
-                //                     <p class="mt-3"><?php 
-                // echo '.$item->getTime().'?></p>
-                //                     <a class="btn btn-primary" href="historico.php?nome='.$item->getName().'"> Histórico</a>
-                //             </div>
-                //         </div>
-                //     </div>';
- 
-                // }
-            ?> -->
+            function reloadData()
+            {
+                // Define the directories
+                $directories = ['temperatura', 'humidade', 'luminosidade', 'cancela', 'esteira', 'porta',];
 
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
-                <div class="card text-center">
-                    <img class="imgDashboard" src="./images/temperature.svg" style="width: auto; height: 150px;"
-                        alt="dashboard img">
-                    <div class="card-body border-0">
-                        <div class="card-title">Temperatura</div>
-                        <span
-                            class="badge rounded-pill text-bg-warning mb-10"><?php echo $sTempSensorData->getValue() . 'Cº' ?></span>
-                        <p class="mt-3"><?php echo $sTempSensorData->getTime() ?></p>
-                        <a class="btn btn-primary" href="historico.php?nome=temperatura"> Histórico</a>
+                // Loop through each directory
+                $id = 1;
+                foreach ($directories as $directory) {
+                    // Read the contents of each file
+            
+                    $formattedDir = __DIR__ . "/api/files/" . $directory;
+
+                    $hora = file_get_contents($formattedDir . "/hora.txt");
+                    $nome = file_get_contents($formattedDir . "/nome.txt");
+                    $valor = file_get_contents($formattedDir . "/valor.txt");
+                    $imagefileName = ReturnFirstImageFileOfADirectory($formattedDir);
+
+
+                    //Events 
+                    switch ($nome) {
+                        case 'temperatura':
+                            //Event for temperature
+                            $deviceService = new DeviceDataService();
+                            // $data = new DateTime('now');
+                            if ($valor > 10) {
+                                // Data: 2024-04-21 08:51:38pm
+                                // Todo: set a fixed format for data to entire application.
+                                // .date("Y-m-d")." ".date("h:i:sa").
+                                $deviceData = new DeviceDataModel('luminosidade', date("Y-m-d h:i:sa"), 1);
+                                $deviceService->ProcessDataPost($deviceData);
+                            }
+                            break;
+                        case 'luminosidade':
+                            if ($valor == 1) {
+                                $valor = "Ligado";
+                                $imagefileName = "light-on.png";
+                            } else {
+                                $valor = "Desligado";
+                                $imagefileName = "light-off.png";
+                            }
+                            break;
+                    }
+
+                    $formattedDirImage = "./api/files/" . $directory . "/" . $imagefileName;
+
+                    // Generate the card HTML
+                    echo "
+                            <div  class='col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center'>
+                            <div class='card text-center' id={$id}>
+                            <img class='imgDashboard' src='{$formattedDirImage}' alt='dashboard img'>
+                            <div class='card-body border-0'>
+                                <div class='card-title'>{$nome}</div>
+                                <span class='badge rounded-pill text-bg-warning mb-10'>{$valor}</span>
+                                <p class='mt-3'>{$hora}</p>
+                                <a class='btn btn-primary' href='historico.php?nome={$formattedDir}'>Histórico</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                    ";
 
+                    $id = $id + 1;
+                }
 
-            <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
-                <div class="card text-center">
-                    <img class="imgDashboard" src="./images/humidity.svg" style="width: auto; height: 150px;"
-                        alt="dashboard img">
-                    <div class="card-body border-0">
-                        <div class="card-title">Humidade</div>
-                        <span
-                            class="badge rounded-pill text-bg-warning mb-10"><?php echo $sHumiditySensorData->getValue() ?></span>
-                        <p class="mt-3"><?php echo $sHumiditySensorData->getTime() ?></p>
-                        <a class="btn btn-primary" href="historico.php?nome=humidade"> Histórico</a>
+            }
 
-                    </div>
-                </div>
-            </div>
-    
-
-
-            <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
-                <div class="card text-center">
-                    <img class="imgDashboard" src="./images/light.svg" style="width: auto; height: 150px;"
-                        alt="dashboard img">
-                    <div class="card-body border-0">
-                        <div class="card-title">Luminosidade</div>
-                        <span
-                            class="badge rounded-pill text-bg-warning mb-10"><?php echo $sLightSensorData->getValue() ?></span>
-                        <p class="mt-3"><?php echo $sLightSensorData->getTime() ?></p>
-                        <a class="btn btn-primary" href="historico.php?nome=luminosidade"> Histórico</a>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-  
-
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
-                <div class="card text-center">
-                    <img class="imgDashboard" src="./images/gate.svg" style="width: auto; height: 150px;"
-                        alt="dashboard img">
-                    <div class="card-body border-0">
-                        <div class="card-title">Cancela</div>
-                        <span
-                            class="badge rounded-pill text-bg-warning mb-10"><?php echo $aBarrierActuadorData->getValue() ?></span>
-                        <p class="mt-3"><?php echo $aBarrierActuadorData->getTime() ?></p>
-                        <a class="btn btn-primary" href="historico.php?nome=cancela"> Histórico</a>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
-                <div class="card text-center">
-                    <img class="imgDashboard" src="./images/door.svg" style="width: auto; height: 150px;"
-                        alt="dashboard img">
-                    <div class="card-body border-0">
-                        <div class="card-title">Porta Automática</div>
-                        <span
-                            class="badge rounded-pill text-bg-warning mb-10"><?php echo $aDoorActuadorData->getValue() ?></span>
-                        <p class="mt-3"><?php echo $sTempSensorData->getTime() ?></p>
-                        <a class="btn btn-primary" href="historico.php?nome=porta"> Histórico</a>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
-                <div class="card text-center">
-                    <img class="imgDashboard" src="./images/belt.svg" style="width: auto; height: 150px;"
-                        alt="dashboard img">
-                    <div class="card-body border-0">
-                        <div class="card-title">Esteira de Tabuleiros</div>
-                        <span
-                            class="badge rounded-pill text-bg-warning mb-10"><?php echo $aTrayActuadorData->getValue() ?></span>
-                        <p class="mt-3"><?php echo $aTrayActuadorData->getTime() ?></p>
-                        <a class="btn btn-primary" href="historico.php?nome=esteira"> Histórico</a>
-
-                    </div>
-                </div>
-            </div>
-        
-            <div class="row justify-content-center m-0">
-                <div class="col-sm-12 col-md-8 mt-5">
-                    <table class="table table-borderless">
-                        <thead>
-                            <tr>
-                                <th scope="col">Tipo de Dispotivo IoT</th>
-                                <th scope="col">Valor</th>
-                                <th scope="col">Data de Atualização</th>
-                                <th scope="col">Estado de Alertas</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><?php echo $sTempSensorData->getName() ?></td>
-                                <td><?php echo $sTempSensorData->getValue() ?></td>
-                                <td><?php echo $sTempSensorData->getTime() ?></td>
-                                <td><span class="badge rounded-pill text-bg-warning">Primary</span></td>
-                            </tr>
-                            <tr>
-                                <td><?php echo $sHumiditySensorData->getName() ?></td>
-                                <td><?php echo $sHumiditySensorData->getValue() ?></td>
-                                <td><?php echo $sHumiditySensorData->getTime() ?></td>
-                                <td><span class="badge rounded-pill text-bg-primary">Primary</span></td>
-                            </tr>
-
-                            <tr>
-                                <td><?php echo $sLightSensorData->getName() ?></td>
-                                <td><?php echo $sLightSensorData->getValue() ?></td>
-                                <td><?php echo $sLightSensorData->getTime() ?></td>
-                                <td><span class="badge rounded-pill text-bg-success">Primary</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div> 
+            reloadData();
+            ?>
         </div>
     </div>
 </body>
+
+<script>
+    // async function fetchData() {
+    //     try {
+    //         const response = await fetch('/api/api.php?nome={}');
+    //         const data = await response.json();
+    //         document.getElementById('data1').textContent = data.value1;
+    //         document.getElementById('data2').textContent = data.value2;
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+    //     }
+    // }
+
+    // foreach()
+    // Initial data fetch
+    // fetchData();
+    reloadData();
+    // Set interval to auto-refresh every 5 seconds
+    setInterval(reloadData, 5000);
+</script>
 
 </html>
