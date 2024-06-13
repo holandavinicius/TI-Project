@@ -1,4 +1,0 @@
-Esteira/2024-04-21/08:51:38pm/Ligado,
-Esteira/2024-04-21/08:51:38pm/Desligado,
-Esteira/2024-04-23/06:44:30pm/Ligado,
-Esteira/2024-04-23/06:44:44pm/Desligado,

@@ -18,7 +18,7 @@ class DeviceDataService {
         $path = self::RelativePath;
         
         
-        $path = $path.strtolower($_deviceData->getName());    
+        $path = $path.strtolower($_deviceData->getName());
 
         file_put_contents($path."/nome.txt",$_deviceData->getName(), FILE_TEXT);
         file_put_contents($path."/valor.txt",$_deviceData->getValue(), FILE_TEXT);

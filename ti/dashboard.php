@@ -115,8 +115,16 @@ function ReturnFirstImageFileOfADirectory($directory)
             function reloadData()
             {
                 // Define the directories
-                $directories = ['temperatura', 'humidade', 'luminosidade', 'cancela', 'esteira', 'porta',];
+                $iterator = new DirectoryIterator("api/files/");
+                $directories = array();
+                foreach ($iterator as $fileinfo) {
+            
+                    if ($fileinfo->isDir() && !$fileinfo->isDot()) {
+                        $directories[] = strtolower($fileinfo->getFilename());
+                        }
+                    }
 
+                $deviceService = new DeviceDataService();    
                 // Loop through each directory
                 $id = 1;
                 foreach ($directories as $directory) {
@@ -134,7 +142,7 @@ function ReturnFirstImageFileOfADirectory($directory)
                     switch ($nome) {
                         case 'temperatura':
                             //Event for temperature
-                            $deviceService = new DeviceDataService();
+                            
                             // $data = new DateTime('now');
                             if ($valor > 10) {
                                 // Data: 2024-04-21 08:51:38pm
