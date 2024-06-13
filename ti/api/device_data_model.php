@@ -8,6 +8,8 @@ class DeviceDataModel {
     private $name;
     private $value;
 
+    private $imageFileName;
+
 
     public function __construct($name,$time,$value) {
         
@@ -39,10 +41,8 @@ class DeviceDataModel {
             $this->value = number_format($this->value,2,'.');
             return $this->value;
         } else {
-
             return $this->value;
         }
-        
     }
 
     public function getTime(){

@@ -24,8 +24,8 @@ class DeviceDataService {
         file_put_contents($path."/valor.txt",$_deviceData->getValue(), FILE_TEXT);
         file_put_contents($path."/hora.txt",$_deviceData->getTime(), FILE_TEXT);
 
-        //Log gerado a cada post ex: Porta/2024-04-21/08:51:38pm/Aberto,
-        $log = $_deviceData->getName()."/".date("Y-m-d")."/".date("h:i:sa")."/".$_deviceData->getValue().",";
+        //Log gerado a cada post ex: Porta | Data: 2024-04-21 08:51:38pm/Aberto,
+        $log = $_deviceData->getName()." | Data: ".date("Y-m-d")." ".date("h:i:sa")." Estado:".$_deviceData->getValue().",";
         
         file_put_contents($path."/log.txt",   $log.PHP_EOL, FILE_APPEND);
 

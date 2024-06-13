@@ -12,17 +12,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     
     //Parameters validation
-    if(!isset($_POST["nome"]) || !isset($_POST["valor"]) || !isset($_POST["hora"])){
+    if (!isset($_POST["nome"]) || !isset($_POST["valor"]) || !isset($_POST["hora"])) {
+        http_response_code(400);
         die("There is a unassined value on body post request.");
     }
 
 
+
     $nome = $_POST["nome"];
     $valor = $_POST["valor"];
-    $hora = $_POST["hora"]; 
+    $hora = $_POST["hora"];
 
-    $deviceDataModel = new DeviceDataModel($nome,$hora,$valor);
+    $deviceDataModel = new DeviceDataModel($nome, $hora, $valor);
 
+    $deviceService = new DeviceDataService();
     $deviceService->ProcessDataPost($deviceDataModel);
 
 
@@ -47,14 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
 
     $device = $_GET["nome"];
+    $deviceService = new DeviceDataService();
     $deviceDataModel = $deviceService->ProcessDataGet($device);
 
 
     print_r($deviceDataModel->getValue());
 
 } else {
-    print("Invalid request");
+    print ("Invalid request");
 }
-
 
 
