@@ -89,8 +89,7 @@ if (!isset($_SESSION['username'])) {
                     <?php
                         $deviceDataService = new DeviceDataService();
                         $resultData = $deviceDataService->ProcessDataGet($device);
-                        $log = $resultData->getLog();
-                        $strSplit = explode(",", $log);
+                        $strSplit = explode(",", $resultData->getLog());
 
                         foreach ($strSplit as $unitLog) {
                             $logSplit = explode("/", $unitLog);
@@ -98,7 +97,8 @@ if (!isset($_SESSION['username'])) {
                             if ($unitLog == end($strSplit)) {
                                 break;
                             }
-                        ?>
+                        
+                    ?>
                     <tr>
                         <td> <?php echo $logSplit[3] ?> </td>
                         <td> <?php echo $logSplit[1] . " " . $logSplit[2] ?> </td>

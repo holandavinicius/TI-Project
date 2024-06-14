@@ -117,6 +117,7 @@ nav{
     animation: fade-up 1.5s;
 }
 
+
 .card:not(#table){
     color: white;
     width: 90%;
@@ -124,11 +125,10 @@ nav{
     transition: all 0.4s;
     border-radius: 1rem;
     border: 1px solid transparent;
-
+    
     box-shadow: 1.3rem 1.3rem 1.3rem rgba(0,0,0,0.5);
 
     background-color: rgba(255,255,255,0.1);
-
     border-top-color: rgba(255,255,255,0.3);
     border-left-color: rgba(255,255,255,0.3);
 }
@@ -146,3 +146,8 @@ nav{
     /*Without this, clicking will make it sticky*/
       pointer-events: none;
   }
+
+
+
+
+  

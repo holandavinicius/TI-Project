@@ -1,33 +1,27 @@
 <?php
-
-
-
 require_once (__DIR__ . "/api/device_data_model.php");
 require_once (__DIR__ . "/api/device_data_service.php");
 
 session_start();
-
-
 
 if (!isset($_SESSION['username'])) {
     header("refresh:60;url=index.php");
     die("Access denied.");
 }
 
-
 function ReturnFirstImageFileOfADirectory($directory)
 {
 
     // Search for PNG files in the directory
-    $files = glob($directory . '/*.{png,svg}', GLOB_BRACE);
+    $files = glob($directory . '/*.{png,svg,jpg}', GLOB_BRACE);
 
     // Check if there are any PNG files
     if (count($files) > 0) {
         // Get the first PNG file
-        $firstPngFile = $files[0];
+        $firstImage = $files[0];
 
         // Output the file name or do something else with it
-        return basename($firstPngFile);
+        return basename($firstImage);
     } else {
         return null;
     }
@@ -36,9 +30,7 @@ function ReturnFirstImageFileOfADirectory($directory)
 
 
 
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -47,7 +39,63 @@ function ReturnFirstImageFileOfADirectory($directory)
     <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
         </script>
-    <!-- <meta http-equiv="refresh" content="5"> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .card.webcam {
+            width: 100%;
+            max-width: 1200px;
+            /* Adjust based on your layout */
+            margin: 20px auto;
+        }
+
+        .card-body.webcam {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .video-container {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%;
+            /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-footer.webcam {
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+    <script>
+        function updateDashboard() {
+            $.ajax({
+                url: 'fetch_data.php',
+                method: 'GET',
+                success: function (data) {
+                    data.forEach(function (sensor) {
+                        $(`#${sensor.id} .sensor-value`).text(sensor.valor);
+                        $(`#${sensor.id} .sensor-time`).text(sensor.hora);
+                        $(`#${sensor.id} .sensor-image`).attr('src', sensor.image);
+                    });
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            updateDashboard(); // Initial fetch
+            setInterval(updateDashboard, 5000); // Fetch every 5 seconds
+        });
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
@@ -74,82 +122,105 @@ function ReturnFirstImageFileOfADirectory($directory)
             <div class="menu-item">
                 <a href="dashboard.php">Home</a>
             </div>
-        </div>
-        <div id="user">
-            <div class="menu-item d-none d-sm-block">
-                <a href="logout.php" class="me-5">
-                    Logout
-                </a>
+            <div class="menu-item">
+                <a href="camera.php">Segurança</a>
             </div>
-            <div class="menu-item d-sm-flex align-items-center">
-                <a href="#" class="d-none d-sm-flex align-items-center text-decoration-none">
-                    <img src="./src/person.svg" id="userLogo" alt="UserLogo">
+        </div>
+        <div id="user" class="d-flex align-items-center">
+            <div class="menu-item d-none d-sm-block me-3">
+                <a href="logout.php">Logout</a>
+            </div>
+            <div class="menu-item dropdown">
+                <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="./src/person.svg" id="userLogo" alt="UserLogo" class="me-2">
                     <p class="d-none d-sm-block m-0"><?php echo $_SESSION['username'] ?></p>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUser">
+                    <a class="dropdown-item" href="#"><?php echo $_SESSION['username'] ?></a>
+                    <a class="dropdown-item" href="logout.php">Logout</a>
+                </div>
             </div>
-            <div class="dropdown d-sm-none align-items-center mt-2">
-                <button data-mdb-button-init data-mdb-ripple-init data-mdb-dropdown-init
-                    class="btn btn-primary-outline dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-mdb-toggle="dropdown" aria-expanded="true">
-                    <img src="./src/person.svg" id="dropdown-userLogo" alt="UserLogo dropdown">
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#"><?php echo $_SESSION['username'] ?></a></li>
-                    <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-                </ul>
-            </div>
+        </div>
+
+        <!-- Mobile View -->
+        <div class="dropdown d-sm-none mt-2">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-expanded="true">
+                <img src="./src/person.svg" id="dropdown-userLogo" alt="UserLogo dropdown">
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="#"><?php echo $_SESSION['username'] ?></a></li>
+                <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+            </ul>
         </div>
     </nav>
 
     <div class="container d-flex justify-content-around align-items-center" id="title">
         <div style="color: white; margin-top: 2rem;">
-            <h1>Servidor IoT</h1>
+            <h1>Universidade Inteligente</h1>
         </div>
     </div>
 
+   
 
     <div class="container">
-        <div class="row">
+        
+        <div class="row" id="sensor-data">
+            <div class='col-12 d-flex justify-content-center'>
+                <div class='card webcam'>
+                    <div class="card-header text-center">
+                        Security Cam
+                    </div>
+                    <div class="card-body webcam">
+                        <div class="video-container">
+                            <video id="webcam" autoplay></video>
+                        </div>
+                    </div>
+                    <div class="card-footer webcam">
+                        <button id="startButton" class="btn btn-primary">Start Security Cam</button>
+                        <button id="stopButton" class="btn btn-danger">Stop  Security Cam</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="sensor-data">
+                
+            </div>
             <?php
-
             function reloadData()
             {
-                // Define the directories
                 $iterator = new DirectoryIterator("api/files/");
                 $directories = array();
+
+
                 foreach ($iterator as $fileinfo) {
-            
+
                     if ($fileinfo->isDir() && !$fileinfo->isDot()) {
                         $directories[] = strtolower($fileinfo->getFilename());
-                        }
                     }
-
-                $deviceService = new DeviceDataService();    
-                // Loop through each directory
-                $id = 1;
+                }
+                // Loop através de cada diretório
                 foreach ($directories as $directory) {
-                    // Read the contents of each file
-            
-                    $formattedDir = __DIR__ . "/api/files/" . $directory;
-
+                    $formattedDir = __DIR__ . "\\api\\files\\" . $directory;
                     $hora = file_get_contents($formattedDir . "/hora.txt");
                     $nome = file_get_contents($formattedDir . "/nome.txt");
                     $valor = file_get_contents($formattedDir . "/valor.txt");
                     $imagefileName = ReturnFirstImageFileOfADirectory($formattedDir);
 
+                    $formattedDirImage = "";
+                    if (!isset($imagefileName)) {
+                        $formattedDirImage = "./images/unloaded_image.svg";
+                    } else {
+                        $formattedDirImage = "./api/files/" . $directory . "/" . $imagefileName;
+                    }
 
-                    //Events 
                     switch ($nome) {
-                        case 'temperatura':
-                            //Event for temperature
-                            
-                            // $data = new DateTime('now');
-                            if ($valor > 10) {
-                                // Data: 2024-04-21 08:51:38pm
-                                // Todo: set a fixed format for data to entire application.
-                                // .date("Y-m-d")." ".date("h:i:sa").
-                                $deviceData = new DeviceDataModel('luminosidade', date("Y-m-d h:i:sa"), 1);
-                                $deviceService->ProcessDataPost($deviceData);
+                        //This needs to send before post on sensor code.
+                        case 'cancela':
+                            if ($valor <= 0) {
+                                $valor = "Fechado";
+                            } else {
+                                $valor = "Aberto";
                             }
                             break;
                         case 'luminosidade':
@@ -163,52 +234,104 @@ function ReturnFirstImageFileOfADirectory($directory)
                             break;
                     }
 
-                    $formattedDirImage = "./api/files/" . $directory . "/" . $imagefileName;
-
-                    // Generate the card HTML
+                    // Gerar o HTML dos cards
                     echo "
-                            <div  class='col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center'>
-                            <div class='card text-center' id={$id}>
-                            <img class='imgDashboard' src='{$formattedDirImage}' alt='dashboard img'>
-                            <div class='card-body border-0'>
-                                <div class='card-title'>{$nome}</div>
-                                <span class='badge rounded-pill text-bg-warning mb-10'>{$valor}</span>
-                                <p class='mt-3'>{$hora}</p>
-                                <a class='btn btn-primary' href='historico.php?nome={$formattedDir}'>Histórico</a>
-                            </div>
-                        </div>
-                    </div>
-                    ";
-
-                    $id = $id + 1;
+                                <div class='col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center'>
+                                    <div class='card text-center' id='{$directory}'>
+                                        <img class='imgDashboard sensor-image'  src={$formattedDirImage}  alt='dashboard img'>
+                                        <div class='card-body border-0'>
+                                            <div class='card-title'>{$nome}</div>
+                                            <span class='badge rounded-pill text-bg-warning mb-10 sensor-value'>{$valor}</span>
+                                            <p class='mt-3 sensor-time'>{$hora}</p>
+                                            <a class='btn btn-primary' href='historico.php?nome={$directory}'>Histórico</a>
+                                        </div>
+                                    </div>
+                                </div>";
                 }
-
             }
 
             reloadData();
             ?>
+            </php>
+        </div>
+
+        <div class="row justify-content-center">
+
+            <div class="col-15 mt-5">
+                <div class="opacity-100%">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <h3>Tabela de sensores</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Tipo de Dispotivo IoT</th>
+                                        <th scope="col">Valor</th>
+                                        <th scope="col">Data de Atualização</th>
+                                        <th scope="col">Estado de Alertas</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <!-- Data from files -->
+                                        <td><?php echo $nome_temperatura ?> </td>
+                                        <td><?php echo $valor_temperatura ?></td>
+                                        <td><?php echo $hora_temperatura ?>
+                                        <td>
+                                            <span class="badge rounded-pill text-bg-warning">Primary</span>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Humidade</td>
+                                        <td>70%</td>
+                                        <td>2024/04/10 14:31
+                                        <td>
+                                            <span class="badge rounded-pill text-bg-primary">Primary</span>
+                                    </tr>
+
+                                    <tr>
+                                        <td>LedArduino</td>
+                                        <td>Ligado</td>
+                                        <td>2024/04/10 14:31
+                                        <td>
+                                            <span class="badge rounded-pill text-bg-success">Primary</span>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
 </body>
-
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
-    // async function fetchData() {
-    //     try {
-    //         const response = await fetch('/api/api.php?nome={}');
-    //         const data = await response.json();
-    //         document.getElementById('data1').textContent = data.value1;
-    //         document.getElementById('data2').textContent = data.value2;
-    //     } catch (error) {
-    //         console.error('Error fetching data:', error);
-    //     }
-    // }
+    const startButton = document.getElementById('startButton');
+    const stopButton = document.getElementById('stopButton');
+    const video = document.getElementById('webcam');
+    let stream;
 
-    // foreach()
-    // Initial data fetch
-    // fetchData();
-    reloadData();
-    // Set interval to auto-refresh every 5 seconds
-    setInterval(reloadData, 5000);
+    startButton.addEventListener('click', async () => {
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+        } catch (err) {
+            console.error('Error accessing webcam: ', err);
+        }
+    });
+
+    stopButton.addEventListener('click', () => {
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+            video.srcObject = null;
+        }
+    });
 </script>
 
 </html>
