@@ -28,8 +28,6 @@ class DeviceDataService {
         $log = $_deviceData->getName()." | Data: ".date("Y-m-d")." ".date("h:i:sa")." Estado:".$_deviceData->getValue().",";
         
         file_put_contents($path."/log.txt",   $log.PHP_EOL, FILE_APPEND);
-
-        
     }
  
 
