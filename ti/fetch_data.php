@@ -4,7 +4,7 @@ function ReturnFirstImageFileOfADirectory($directory)
 {
 
     // Search for PNG files in the directory
-    $files = glob($directory . '/*.{png,svg,jpg}', GLOB_BRACE);
+    $files = glob($directory . '/*.{svg,png,jpg}', GLOB_BRACE);
 
     // Check if there are any PNG files
     if (count($files) > 0) {
@@ -37,6 +37,7 @@ function fetchSensorData()
         $hora = file_get_contents($formattedDir . "/hora.txt");
         $nome = file_get_contents($formattedDir . "/nome.txt");
         $valor = file_get_contents($formattedDir . "/valor.txt");
+        $tipo = file_get_contents($formattedDir . "/tipo.txt");
         $imagefileName = ReturnFirstImageFileOfADirectory($formattedDir);
 
         if(!isset($imagefileName)){
@@ -46,6 +47,7 @@ function fetchSensorData()
         }
 
         switch ($nome) {
+            //This needs to send before post on sensor code.
             case 'cancela':
                 if ($valor <= 0) {
                     $valor = "Fechado";
@@ -56,10 +58,24 @@ function fetchSensorData()
             case 'luminosidade':
                 if ($valor == 1) {
                     $valor = "Ligado";
-                    $imagefileName = "light-on.png";
+                    $imagefileName = "lamp-on.svg";
                 } else {
                     $valor = "Desligado";
-                    $imagefileName = "light-off.png";
+                    $imagefileName = "lamp-off.svg";
+                }
+                break;
+            case 'fumaca':
+                if ($valor >= 1) {
+                    $valor = "Ativado";
+                } else {
+                    $valor = "Desativado";
+                }
+                break;
+            case 'movimento':
+                if ($valor >= 1) {
+                    $valor = "Ativado";
+                } else {
+                    $valor = "Desativado";
                 }
                 break;
         }
@@ -70,7 +86,8 @@ function fetchSensorData()
             'nome' => $nome,
             'valor' => $valor,
             'hora' => $hora,
-            'image' => $formattedDirImage
+            'image' => $formattedDirImage,
+            'tipo' => $tipo,
         ];
     }
 

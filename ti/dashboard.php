@@ -13,7 +13,7 @@ function ReturnFirstImageFileOfADirectory($directory)
 {
 
     // Search for PNG files in the directory
-    $files = glob($directory . '/*.{png,svg,jpg}', GLOB_BRACE);
+    $files = glob($directory . '/*.{svg,png,jpg}', GLOB_BRACE);
 
     // Check if there are any PNG files
     if (count($files) > 0) {
@@ -36,46 +36,25 @@ function ReturnFirstImageFileOfADirectory($directory)
 <html lang="pt-BR">
 
 <head>
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <style>
+        .section-title {
+            color: #ffffff;
+            /* Change to your desired color */
+            font-size: 2rem;
+            /* Increase font size */
+            font-weight: bold;
+            /* Optional: make the text bold */
+            margin-top: 20px;
+            /* Optional: add some space above the title */
+            margin-bottom: 20px;
+            /* Optional: add some space below the title */
+        }
+    </style>
     <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
         </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        .card.webcam {
-            width: 100%;
-            max-width: 1200px;
-            /* Adjust based on your layout */
-            margin: 20px auto;
-        }
-
-        .card-body.webcam {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .video-container {
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-            padding-top: 56.25%;
-            /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
-        }
-
-        .video-container video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .card-footer.webcam {
-            text-align: center;
-            padding: 10px;
-        }
-    </style>
     <script>
         function updateDashboard() {
             $.ajax({
@@ -100,7 +79,6 @@ function ReturnFirstImageFileOfADirectory($directory)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="icon" href="./src/logo.svg">
-    <link rel="stylesheet" href="./css/dashboard.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -162,10 +140,10 @@ function ReturnFirstImageFileOfADirectory($directory)
         </div>
     </div>
 
-   
+
 
     <div class="container">
-        
+
         <div class="row" id="sensor-data">
             <div class='col-12 d-flex justify-content-center'>
                 <div class='card webcam'>
@@ -179,32 +157,41 @@ function ReturnFirstImageFileOfADirectory($directory)
                     </div>
                     <div class="card-footer webcam">
                         <button id="startButton" class="btn btn-primary">Start Security Cam</button>
-                        <button id="stopButton" class="btn btn-danger">Stop  Security Cam</button>
+                        <button id="stopButton" class="btn btn-danger">Stop Security Cam</button>
                     </div>
                 </div>
             </div>
             <div class="row" id="sensor-data">
-                
             </div>
+
+            <h2 class="section-title">Sensors</h2>
+            <div id="sensors-section" class="row"></div>
+
+            <h2 class="section-title">Actuators</h2>
+            <div id="actuators-section" class="row"></div>
+
             <?php
             function reloadData()
             {
                 $iterator = new DirectoryIterator("api/files/");
                 $directories = array();
 
-
                 foreach ($iterator as $fileinfo) {
-
                     if ($fileinfo->isDir() && !$fileinfo->isDot()) {
                         $directories[] = strtolower($fileinfo->getFilename());
                     }
                 }
-                // Loop através de cada diretório
+
+                $sensorsHtml = '';
+                $actuatorsHtml = '';
+
+                // Loop through each directory
                 foreach ($directories as $directory) {
                     $formattedDir = __DIR__ . "\\api\\files\\" . $directory;
                     $hora = file_get_contents($formattedDir . "/hora.txt");
                     $nome = file_get_contents($formattedDir . "/nome.txt");
                     $valor = file_get_contents($formattedDir . "/valor.txt");
+                    $tipo = file_get_contents($formattedDir . "/tipo.txt");
                     $imagefileName = ReturnFirstImageFileOfADirectory($formattedDir);
 
                     $formattedDirImage = "";
@@ -214,6 +201,7 @@ function ReturnFirstImageFileOfADirectory($directory)
                         $formattedDirImage = "./api/files/" . $directory . "/" . $imagefileName;
                     }
 
+                    //Actuators Evemts
                     switch ($nome) {
                         //This needs to send before post on sensor code.
                         case 'cancela':
@@ -226,37 +214,72 @@ function ReturnFirstImageFileOfADirectory($directory)
                         case 'luminosidade':
                             if ($valor == 1) {
                                 $valor = "Ligado";
-                                $imagefileName = "light-on.png";
+                                $imagefileName = "lamp-on.svg";
                             } else {
                                 $valor = "Desligado";
-                                $imagefileName = "light-off.png";
+                                $imagefileName = "lamp-off.svg";
+                            }
+                            break;
+                        case 'fumaca':
+                            if ($valor >= 1) {
+                                $valor = "Ativado";
+                            } else {
+                                $valor = "Desativado";
+                            }
+                            break;
+                        case 'movimento':
+                            if ($valor >= 1) {
+                                $valor = "Ativado";
+                            } else {
+                                $valor = "Desativado";
+                            }
+                            break;
+                        case 'sprinkler':
+                            if ($valor >= 1) {
+                                $valor = "Ativado";
+                            } else {
+                                $valor = "Desativado";
                             }
                             break;
                     }
 
-                    // Gerar o HTML dos cards
-                    echo "
-                                <div class='col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center'>
-                                    <div class='card text-center' id='{$directory}'>
-                                        <img class='imgDashboard sensor-image'  src={$formattedDirImage}  alt='dashboard img'>
-                                        <div class='card-body border-0'>
-                                            <div class='card-title'>{$nome}</div>
-                                            <span class='badge rounded-pill text-bg-warning mb-10 sensor-value'>{$valor}</span>
-                                            <p class='mt-3 sensor-time'>{$hora}</p>
-                                            <a class='btn btn-primary' href='historico.php?nome={$directory}'>Histórico</a>
-                                        </div>
+                    $nome = ucfirst($nome);
+
+                    // Generate the card HTML
+                    $cardHtml = "
+                            <div class='col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center'>
+                                <div class='card text-center' id='{$directory}'>
+                                    <span class='badge rounded-pill text-bg-warning mb-10 sensor-value'>{$valor}</span>
+                                    <img class='imgDashboard sensor-image' src='{$formattedDirImage}' alt='dashboard img'>
+                                    <div class='card-body border-0'>
+                                        <div class='card-title'>{$nome}</div>
+                                        <p class='mt-3 sensor-time'>{$hora}</p>
+                                        <a class='btn btn-primary' href='historico.php?nome={$directory}'>Histórico</a>
                                     </div>
-                                </div>";
+                                </div>
+                            </div>";
+
+                    if ($tipo == 1) { // Sensors
+                        $sensorsHtml .= $cardHtml;
+                    } else { // Actuators
+                        $actuatorsHtml .= $cardHtml;
+                    }
                 }
+
+                echo "<script>
+                    document.getElementById('sensors-section').innerHTML = `{$sensorsHtml}`;
+                    document.getElementById('actuators-section').innerHTML = `{$actuatorsHtml}`;
+                    </script>";
             }
+
 
             reloadData();
             ?>
-            </php>
         </div>
 
-        <div class="row justify-content-center">
 
+        <!-- Sensor and Actuator Table -->
+        <div class="row justify-content-center">
             <div class="col-15 mt-5">
                 <div class="opacity-100%">
                     <div class="card text-center">
