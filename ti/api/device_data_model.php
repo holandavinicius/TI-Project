@@ -8,15 +8,16 @@ class DeviceDataModel {
     private $name;
     private $value;
 
-    private $imageFileName;
+    private $type; //Sensor (1) or actuator (2)
 
 
-    public function __construct($name,$time,$value) {
+    public function __construct($name,$time,$value,$type) {
         
         $this->time = $time;
         $this->log = "";
         $this->name = $name;
         $this->value = $value;
+        $this->type = $type;
     }
    
 
@@ -47,6 +48,10 @@ class DeviceDataModel {
 
     public function getTime(){
         return $this->time;
+    }
+
+    public function getType(){
+        return $this->type;
     }
 
 }

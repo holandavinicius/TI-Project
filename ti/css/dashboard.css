@@ -117,6 +117,7 @@ nav{
     animation: fade-up 1.5s;
 }
 
+
 .card:not(#table){
     color: white;
     width: 90%;
@@ -124,11 +125,10 @@ nav{
     transition: all 0.4s;
     border-radius: 1rem;
     border: 1px solid transparent;
-
+    
     box-shadow: 1.3rem 1.3rem 1.3rem rgba(0,0,0,0.5);
 
     background-color: rgba(255,255,255,0.1);
-
     border-top-color: rgba(255,255,255,0.3);
     border-left-color: rgba(255,255,255,0.3);
 }
@@ -146,3 +146,58 @@ nav{
     /*Without this, clicking will make it sticky*/
       pointer-events: none;
   }
+
+
+/*------------------------------------------------*/
+
+.card.webcam {
+    width: 100%;
+    max-width: 1200px;
+    /* Adjust based on your layout */
+    margin: 20px auto;
+}
+
+.card-body.webcam {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.video-container {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    padding-top: 56.25%;
+    /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+}
+
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.card-footer.webcam {
+    text-align: center;
+    padding: 10px;
+}
+
+.card .badge {
+position: absolute;
+top: 20px; /* Adjust based on your preference */
+left: 50%;
+transform: translateX(-50%);
+z-index: 1; /* Ensure it stays on top */
+font-size: 21px; /* Adjust font size as needed */
+}
+
+.section-title {
+    color: #ffffff; /* Change to your desired color */
+    font-size: 2rem; /* Increase font size */
+    font-weight: bold; /* Optional: make the text bold */
+    margin-top: 20px; /* Optional: add some space above the title */
+    margin-bottom: 20px; /* Optional: add some space below the title */
+}

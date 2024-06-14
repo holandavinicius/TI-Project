@@ -10,20 +10,41 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     $deviceService = new DeviceDataService();
     
-    
     //Parameters validation
     if (!isset($_POST["nome"]) || !isset($_POST["valor"]) || !isset($_POST["hora"])) {
         http_response_code(400);
         die("There is a unassined value on body post request.");
     }
 
+    //Parameters validation
+    if(!isset($_POST["nome"])){
+        http_response_code(400);
+        die("There is a unassined value to nome property.");
+    }
+
+    if(!$deviceService->ValidateDevice($_POST["nome"])){
+        http_response_code(400);
+        die($_GET["nome"]." is not a valid device.");
+    }
+
+    if(!isset($_POST["tipo"])){
+        http_response_code(400);
+        die($_GET["tipo"]." is not a valid type.");
+    }
+
+    if($_POST["tipo"] != 1 && $_POST["tipo"] != 2){
+        http_response_code(400);
+        die($_GET["tipo"]." is not a valid type.");
+    }
 
 
-    $nome = $_POST["nome"];
-    $valor = $_POST["valor"];
-    $hora = $_POST["hora"];
+    $name = $_POST["nome"];
+    $time = $_POST["hora"];
+    $value = $_POST["valor"];
+    $type = $_POST["tipo"];
 
-    $deviceDataModel = new DeviceDataModel($nome, $hora, $valor);
+
+    $deviceDataModel = new DeviceDataModel($name, $time, $value, $type);
 
     $deviceService = new DeviceDataService();
     $deviceService->ProcessDataPost($deviceDataModel);
@@ -40,14 +61,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         die("There is a unassined value to nome property.");
     }
 
-    
-
     if(!$deviceService->ValidateDevice($_GET["nome"])){
         http_response_code(400);
         die($_GET["nome"]." is not a valid device.");
     }
-    //verify if nome=value exists.
-    
 
     $device = $_GET["nome"];
     $deviceService = new DeviceDataService();
