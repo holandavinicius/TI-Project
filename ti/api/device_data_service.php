@@ -40,7 +40,8 @@ class DeviceDataService {
         $name = file_get_contents($path."/nome.txt",false);
         $value = file_get_contents($path."/valor.txt", false);
         $time = file_get_contents($path."/hora.txt", false);
-        $_deviceData = new DeviceDataModel($name, $time,$value);
+        $tipo = file_get_contents($path."/tipo.txt", false);
+        $_deviceData = new DeviceDataModel($name, $time,$value,$tipo);
         $_deviceData->setLog(file_get_contents($path."/log.txt", false));
 
         
