@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Luminosidade/2024-04-21/08:51:38pm/Ligado,
 Luminosidade/2024-04-21/08:51:38pm/Desligado,
 luminosidade | Data: 2024-06-13 02:40:54am Estado:1.00,
@@ -22,3 +23,5 @@ luminosidade | Data: 2024-06-14 12:13:52am Estado:1.00,
 luminosidade | Data: 2024-06-14 12:24:57am Estado:1.00,
 luminosidade | Data: 2024-06-14 08:15:10pm Estado:1.00,
 luminosidade | Data: 2024-06-14 08:16:02pm Estado:1.00,
+=======
+>>>>>>> ca2bdfb (hell txt)

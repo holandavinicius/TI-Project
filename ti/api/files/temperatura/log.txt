@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 temperatura | Data: 2024-06-13 02:34:48am Estado:4.40,
 temperatura | Data: 2024-06-13 02:34:48am Estado:3.62,
 temperatura | Data: 2024-06-13 02:34:50am Estado:2.05,
@@ -18381,3 +18382,14 @@ temperatura/2024-06-14/02:42:39am/13.00,
 temperatura/2024-06-14/10:18:30pm/6.74,
 temperatura/2024-06-14/10:32:02pm/-0.49,
 >>>>>>> 66f4b2b13468d8ab588614c4462970a7be4917bf
+=======
+temperatura/2024-06-15/01:10:36am/17.69,
+temperatura/2024-06-15/01:11:02am/17.69,
+temperatura/2024-06-15/01:12:34am/20.00,
+temperatura/2024-06-15/01:12:37am/20.00,
+temperatura/2024-06-15/01:16:51am/-100.00,
+temperatura/2024-06-15/01:18:20am/-100.00,
+temperatura/2024-06-15/01:23:09am/-100.00,
+temperatura/2024-06-15/01:25:14am/-100.00,
+temperatura/2024-06-15/01:25:23am/-100.00,
+>>>>>>> ca2bdfb (hell txt)
