@@ -37,42 +37,32 @@ function ReturnFirstImageFileOfADirectory($directory)
 
 <head>
     <link rel="stylesheet" href="./css/dashboard.css">
-    <style>
-        .section-title {
-            color: #ffffff;
-            /* Change to your desired color */
-            font-size: 2rem;
-            /* Increase font size */
-            font-weight: bold;
-            /* Optional: make the text bold */
-            margin-top: 20px;
-            /* Optional: add some space above the title */
-            margin-bottom: 20px;
-            /* Optional: add some space below the title */
-        }
-    </style>
-    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-        </script>
+   
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
         function updateDashboard() {
             $.ajax({
                 url: 'fetch_data.php',
                 method: 'GET',
+                dataType: 'json',
                 success: function (data) {
+                    console.log("Data fetched successfully:", data);
                     data.forEach(function (sensor) {
                         $(`#${sensor.id} .sensor-value`).text(sensor.valor);
                         $(`#${sensor.id} .sensor-time`).text(sensor.hora);
                         $(`#${sensor.id} .sensor-image`).attr('src', sensor.image);
                     });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("Error fetching data:", textStatus, errorThrown);
                 }
             });
         }
 
         $(document).ready(function () {
-            updateDashboard(); // Initial fetch
-            setInterval(updateDashboard, 5000); // Fetch every 5 seconds
+            updateDashboard();
+            setInterval(updateDashboard, 5000);
         });
     </script>
     <meta charset="UTF-8">
@@ -86,6 +76,20 @@ function ReturnFirstImageFileOfADirectory($directory)
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
+        <style>
+        .section-title {
+            color: #ffffff;
+            /* Change to your desired color */
+            font-size: 2rem;
+            /* Increase font size */
+            font-weight: bold;
+            /* Optional: make the text bold */
+            margin-top: 20px;
+            /* Optional: add some space above the title */
+            margin-bottom: 20px;
+            /* Optional: add some space below the title */
+        }
+    </style>
 
 </head>
 
@@ -163,11 +167,13 @@ function ReturnFirstImageFileOfADirectory($directory)
             </div>
             <div class="row" id="sensor-data">
             </div>
-
-            <h2 class="section-title">Sensors</h2>
+            <p></p>
+            <h2 class="section-title">Sensores</h2>
             <div id="sensors-section" class="row"></div>
-
-            <h2 class="section-title">Actuators</h2>
+            <p></p>
+            <p></p>
+            <p></p>
+            <h2 class="section-title">Atuadores</h2>
             <div id="actuators-section" class="row"></div>
 
             <?php
@@ -187,7 +193,7 @@ function ReturnFirstImageFileOfADirectory($directory)
 
                 // Loop through each directory
                 foreach ($directories as $directory) {
-                    
+
                     $formattedDir = __DIR__ . "\\api\\files\\" . $directory;
                     $hora = file_get_contents($formattedDir . "/hora.txt");
                     $nome = file_get_contents($formattedDir . "/nome.txt");
@@ -195,25 +201,24 @@ function ReturnFirstImageFileOfADirectory($directory)
                     $tipo = file_get_contents($formattedDir . "/tipo.txt");
                     $imagefileName = ReturnFirstImageFileOfADirectory($formattedDir);
 
-                    $formattedDirImage = "";
-                    if (!isset($imagefileName)) {
-                        $formattedDirImage = "./images/unloaded_image.svg";
-                    } else {
-                        $formattedDirImage = "./api/files/" . $directory . "/" . $imagefileName;
-                    }
+
 
                     //Actuators Evemts
                     switch ($nome) {
                         //This needs to send before post on sensor code.
                         case 'cancela':
+                            $nome = "Cancela Eletrônica";
                             if ($valor <= 0) {
                                 $valor = "Fechado";
+                                $imagefileName = "barrier_closed.svg";
                             } else {
                                 $valor = "Aberto";
+                                $imagefileName = "barrier_open.svg";
                             }
                             break;
                         case 'luminosidade':
-                            if ($valor == 1) {
+                            $nome = "LED";
+                            if ($valor >= 1) {
                                 $valor = "Ligado";
                                 $imagefileName = "lamp-on.svg";
                             } else {
@@ -222,6 +227,7 @@ function ReturnFirstImageFileOfADirectory($directory)
                             }
                             break;
                         case 'fumaca':
+                            $nome = "Fumo";
                             if ($valor >= 1) {
                                 $valor = "Ativado";
                             } else {
@@ -235,6 +241,22 @@ function ReturnFirstImageFileOfADirectory($directory)
                                 $valor = "Desativado";
                             }
                             break;
+                        case 'sprinkler':
+                            if ($valor >= 1) {
+                                $valor = "Ativado";
+                                $imagefileName = "sprinkler-on.svg";
+                            } else {
+                                $valor = "Desativado";
+                                $imagefileName = "sprinkler-off.svg";
+                            }
+                            break;
+                    }
+
+                    $formattedDirImage = "";
+                    if (!isset($imagefileName)) {
+                        $formattedDirImage = "./images/unloaded_image.svg";
+                    } else {
+                        $formattedDirImage = "./api/files/" . $directory . "/" . $imagefileName;
                     }
 
                     $nome = ucfirst($nome);
@@ -325,7 +347,6 @@ function ReturnFirstImageFileOfADirectory($directory)
     </div>
 
 </body>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
