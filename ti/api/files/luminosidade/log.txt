@@ -1,6 +1,5 @@
 Luminosidade/2024-04-21/08:51:38pm/Ligado,
 Luminosidade/2024-04-21/08:51:38pm/Desligado,
-<<<<<<< HEAD
 luminosidade | Data: 2024-06-13 02:40:54am Estado:1.00,
 luminosidade | Data: 2024-06-13 02:41:06am Estado:1.00,
 luminosidade | Data: 2024-06-13 02:44:49am Estado:1.00,
@@ -23,5 +22,3 @@ luminosidade | Data: 2024-06-14 12:13:52am Estado:1.00,
 luminosidade | Data: 2024-06-14 12:24:57am Estado:1.00,
 luminosidade | Data: 2024-06-14 08:15:10pm Estado:1.00,
 luminosidade | Data: 2024-06-14 08:16:02pm Estado:1.00,
-=======
->>>>>>> 66f4b2b13468d8ab588614c4462970a7be4917bf
