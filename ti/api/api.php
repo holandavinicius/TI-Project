@@ -27,15 +27,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         die($_GET["nome"]." is not a valid device.");
     }
 
-    if(!isset($_POST["tipo"])){
-        http_response_code(400);
-        die($_GET["tipo"]." is not a valid type.");
-    }
+    // if(!isset($_POST["tipo"])){
+    //     http_response_code(400);
+    //     die($_GET["tipo"]." is not a valid type.");
+    // }
 
-    if($_POST["tipo"] != 1 && $_POST["tipo"] != 2){
-        http_response_code(400);
-        die($_GET["tipo"]." is not a valid type.");
-    }
+    // if($_POST["tipo"] != 1 && $_POST["tipo"] != 2){
+    //     http_response_code(400);
+    //     die($_GET["tipo"]." is not a valid type.");
+    // }
 
 
     $name = $_POST["nome"];

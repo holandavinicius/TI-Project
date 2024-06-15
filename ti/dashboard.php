@@ -187,6 +187,7 @@ function ReturnFirstImageFileOfADirectory($directory)
 
                 // Loop through each directory
                 foreach ($directories as $directory) {
+                    
                     $formattedDir = __DIR__ . "\\api\\files\\" . $directory;
                     $hora = file_get_contents($formattedDir . "/hora.txt");
                     $nome = file_get_contents($formattedDir . "/nome.txt");
@@ -228,13 +229,6 @@ function ReturnFirstImageFileOfADirectory($directory)
                             }
                             break;
                         case 'movimento':
-                            if ($valor >= 1) {
-                                $valor = "Ativado";
-                            } else {
-                                $valor = "Desativado";
-                            }
-                            break;
-                        case 'sprinkler':
                             if ($valor >= 1) {
                                 $valor = "Ativado";
                             } else {
