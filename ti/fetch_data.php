@@ -81,8 +81,19 @@ function fetchSensorData()
             case 'sprinkler':
                 if ($valor >= 1) {
                     $valor = "Ativado";
+                    $imagefileName = "sprinkler-on.svg";
                 } else {
                     $valor = "Desativado";
+                    $imagefileName = "sprinkler-off.svg";
+                }
+                break;
+            case 'porta':
+                if($valor >= 1){
+                    $valor = "Aberta";
+                    $imagefileName = "door-opened.svg";
+                } else {
+                    $valor = "Fechada";
+                    $imagefileName = "door-closed.svg";
                 }
                 break;
         }

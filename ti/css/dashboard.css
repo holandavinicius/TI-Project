@@ -201,3 +201,32 @@ font-size: 21px; /* Adjust font size as needed */
     margin-top: 20px; /* Optional: add some space above the title */
     margin-bottom: 20px; /* Optional: add some space below the title */
 }
+
+.custom-title {
+    font-size: 1.5rem; 
+    font-weight: bold; 
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background-color: #f2f2f2;
+}
+/* img {
+    max-width: 50%;
+    height: auto;
+}
+
+#imageList img {
+    max-width: 50%;
+    height: auto;
+} */

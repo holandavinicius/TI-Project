@@ -37,12 +37,12 @@ while(True):
         if(int(temperatura)> 20):
             GPIO.output(channel,high)
             valor = '1'
-            payload = {'nome' :  nome ,'valor': valor , 'hora' : hora}
+            payload = {'nome' :  nome ,'valor': valor , 'hora' : hora, 'tipo':1}
             r = requests.post("https://iot.dei.estg.ipleiria.pt/ti/g170/api/api.php", data=payload)    
         else:
             GPIO.output(channel,low)
             valor = '0'
-            payload = {'nome' :  nome ,'valor': valor , 'hora' : hora}
+            payload = {'nome' :  nome ,'valor': valor , 'hora' : hora, 'tipo':1}
             r = requests.post("https://iot.dei.estg.ipleiria.pt/ti/g170/api/api.php", data=payload)    
         
         time.sleep(5)

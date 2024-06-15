@@ -37,33 +37,13 @@ function ReturnFirstImageFileOfADirectory($directory)
 
 <head>
     <link rel="stylesheet" href="./css/dashboard.css">
-   
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script>
-        function updateDashboard() {
-            $.ajax({
-                url: 'fetch_data.php',
-                method: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    console.log("Data fetched successfully:", data);
-                    data.forEach(function (sensor) {
-                        $(`#${sensor.id} .sensor-value`).text(sensor.valor);
-                        $(`#${sensor.id} .sensor-time`).text(sensor.hora);
-                        $(`#${sensor.id} .sensor-image`).attr('src', sensor.image);
-                    });
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.error("Error fetching data:", textStatus, errorThrown);
-                }
-            });
-        }
 
-        $(document).ready(function () {
-            updateDashboard();
-            setInterval(updateDashboard, 5000);
-        });
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,21 +56,6 @@ function ReturnFirstImageFileOfADirectory($directory)
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-        <style>
-        .section-title {
-            color: #ffffff;
-            /* Change to your desired color */
-            font-size: 2rem;
-            /* Increase font size */
-            font-weight: bold;
-            /* Optional: make the text bold */
-            margin-top: 20px;
-            /* Optional: add some space above the title */
-            margin-bottom: 20px;
-            /* Optional: add some space below the title */
-        }
-    </style>
-
 </head>
 
 <body>
@@ -105,7 +70,7 @@ function ReturnFirstImageFileOfADirectory($directory)
                 <a href="dashboard.php">Home</a>
             </div>
             <div class="menu-item">
-                <a href="camera.php">Segurança</a>
+                <a href="security.php">Segurança</a>
             </div>
         </div>
         <div id="user" class="d-flex align-items-center">
@@ -152,7 +117,7 @@ function ReturnFirstImageFileOfADirectory($directory)
             <div class='col-12 d-flex justify-content-center'>
                 <div class='card webcam'>
                     <div class="card-header text-center">
-                        Security Cam
+                        Camara Entrada
                     </div>
                     <div class="card-body webcam">
                         <div class="video-container">
@@ -160,20 +125,20 @@ function ReturnFirstImageFileOfADirectory($directory)
                         </div>
                     </div>
                     <div class="card-footer webcam">
-                        <button id="startButton" class="btn btn-primary">Start Security Cam</button>
-                        <button id="stopButton" class="btn btn-danger">Stop Security Cam</button>
+                        <button id="startButton" class="btn btn-primary">Iniciar Camara</button>
+                        <button id="stopButton" class="btn btn-danger">Pausar Camara</button>
+                        <button id="captureButton" class="btn btn-success">Capturar Imagem</button>
                     </div>
                 </div>
             </div>
+
+
             <div class="row" id="sensor-data">
             </div>
-            <p></p>
-            <h2 class="section-title">Sensores</h2>
+            <h2 class="section-title  text-center">Sensores</h2>
             <div id="sensors-section" class="row"></div>
-            <p></p>
-            <p></p>
-            <p></p>
-            <h2 class="section-title">Atuadores</h2>
+
+            <h2 class="section-title  text-center mt-20">Atuadores</h2>
             <div id="actuators-section" class="row"></div>
 
             <?php
@@ -191,6 +156,8 @@ function ReturnFirstImageFileOfADirectory($directory)
                 $sensorsHtml = '';
                 $actuatorsHtml = '';
 
+
+                //$startWebcam = false; // Flag to start the webcam
                 // Loop through each directory
                 foreach ($directories as $directory) {
 
@@ -237,6 +204,7 @@ function ReturnFirstImageFileOfADirectory($directory)
                         case 'movimento':
                             if ($valor >= 1) {
                                 $valor = "Ativado";
+                                $startWebcam = true; // Set flag to true when movimento is >= 1
                             } else {
                                 $valor = "Desativado";
                             }
@@ -248,6 +216,15 @@ function ReturnFirstImageFileOfADirectory($directory)
                             } else {
                                 $valor = "Desativado";
                                 $imagefileName = "sprinkler-off.svg";
+                            }
+                            break;
+                        case 'porta':
+                            if ($valor >= 1) {
+                                $valor = "Aberta";
+                                $imagefileName = "door-opened.svg";
+                            } else {
+                                $valor = "Fechada";
+                                $imagefileName = "door-closed.svg";
                             }
                             break;
                     }
@@ -268,7 +245,7 @@ function ReturnFirstImageFileOfADirectory($directory)
                                     <span class='badge rounded-pill text-bg-warning mb-10 sensor-value'>{$valor}</span>
                                     <img class='imgDashboard sensor-image' src='{$formattedDirImage}' alt='dashboard img'>
                                     <div class='card-body border-0'>
-                                        <div class='card-title'>{$nome}</div>
+                                        <div class='card-title custom-title'>{$nome}</div>
                                         <p class='mt-3 sensor-time'>{$hora}</p>
                                         <a class='btn btn-primary' href='historico.php?nome={$directory}'>Histórico</a>
                                     </div>
@@ -285,6 +262,7 @@ function ReturnFirstImageFileOfADirectory($directory)
                 echo "<script>
                     document.getElementById('sensors-section').innerHTML = `{$sensorsHtml}`;
                     document.getElementById('actuators-section').innerHTML = `{$actuatorsHtml}`;
+                    
                     </script>";
             }
 
@@ -294,82 +272,109 @@ function ReturnFirstImageFileOfADirectory($directory)
         </div>
 
 
-        <!-- Sensor and Actuator Table -->
-        <div class="row justify-content-center">
-            <div class="col-15 mt-5">
-                <div class="opacity-100%">
-                    <div class="card text-center">
-                        <div class="card-header">
-                            <h3>Tabela de sensores</h3>
-                        </div>
-                        <div class="card-body">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Tipo de Dispotivo IoT</th>
-                                        <th scope="col">Valor</th>
-                                        <th scope="col">Data de Atualização</th>
-                                        <th scope="col">Estado de Alertas</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <!-- Data from files -->
-                                        <td><?php echo $nome_temperatura ?> </td>
-                                        <td><?php echo $valor_temperatura ?></td>
-                                        <td><?php echo $hora_temperatura ?>
-                                        <td>
-                                            <span class="badge rounded-pill text-bg-warning">Primary</span>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Humidade</td>
-                                        <td>70%</td>
-                                        <td>2024/04/10 14:31
-                                        <td>
-                                            <span class="badge rounded-pill text-bg-primary">Primary</span>
-                                    </tr>
-
-                                    <tr>
-                                        <td>LedArduino</td>
-                                        <td>Ligado</td>
-                                        <td>2024/04/10 14:31
-                                        <td>
-                                            <span class="badge rounded-pill text-bg-success">Primary</span>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
+    function updateDashboard() {
+        $.ajax({
+            url: 'fetch_data.php',
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log("Data fetched successfully:", data);
+                data.forEach(function (sensor) {
+                    $(`#${sensor.id} .sensor-value`).text(sensor.valor);
+                    $(`#${sensor.id} .sensor-time`).text(sensor.hora);
+                    $(`#${sensor.id} .sensor-image`).attr('src', sensor.image);
+
+                    if (sensor.nome === 'movimento' && sensor.valor >= 1) {
+                        startWebcam(); // Start webcam when movimento is detected
+                    }
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error("Error fetching data:", textStatus, errorThrown);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        updateDashboard();
+        setInterval(updateDashboard, 2000);
+    });
+
+
+    const video = document.getElementById('webcam');
     const startButton = document.getElementById('startButton');
     const stopButton = document.getElementById('stopButton');
-    const video = document.getElementById('webcam');
-    let stream;
+    const captureButton = document.getElementById('captureButton');
+    const imageList = document.getElementById('imageList');
+    const ajaxUrl = 'fetch_data.php'; // Replace with your fetch URL
 
-    startButton.addEventListener('click', async () => {
-        try {
-            stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            video.srcObject = stream;
-        } catch (err) {
-            console.error('Error accessing webcam: ', err);
-        }
-    });
+    let captureInterval;
 
-    stopButton.addEventListener('click', () => {
+    function startWebcam() {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(error => {
+                console.error('Error accessing webcam: ', error);
+            });
+    }
+
+    function stopWebCam() {
+        const stream = video.srcObject;
         if (stream) {
-            stream.getTracks().forEach(track => track.stop());
+            const tracks = stream.getTracks();
+            tracks.forEach(track => track.stop());
             video.srcObject = null;
         }
-    });
+    }
+
+    function captureImage() {
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imageDataURL = canvas.toDataURL('image/jpeg');
+
+        // Create image element and append to imageList
+        // const imgElement = document.createElement('img');
+        // imgElement.src = imageDataURL;
+        // imgElement.classList.add('col-md-3', 'my-2');
+        // imageList.appendChild(imgElement);
+          // AJAX POST request to save image on the server
+        const dateNow = new Date().toISOString();
+        $.ajax({
+            url: 'save_image.php',
+            method: 'POST',
+            data: { 
+            image: imageDataURL},
+            success: function(response) {
+                console.log('Image saved successfully:', response);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error saving image:', error);
+            }
+        });
+
+    }
+
+
+    startButton.addEventListener('click', startWebcam);
+    stopButton.addEventListener('click', stopWebCam);
+    captureButton.addEventListener('click', captureImage);
+
+    // Start fetching data and capturing images every 5 seconds
+    // 
+    
+    fetchDataAndCapture(); // Initial fetch
+    captureInterval = setInterval(fetchDataAndCapture, 2000); // Fetch every 5 seconds
+
 </script>
 
 </html>
