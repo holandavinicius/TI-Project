@@ -6,9 +6,6 @@ This repository will contain all files of TI project.
 
 
 
-
-<h2> TASKS PART 2 (Due:Saturday, 15 June 2024, 11:59 PM) : </h2>
-
 -----------------------------------------------------------------
 
 Integration steps on Server:
@@ -19,26 +16,15 @@ Password: LKuGjS6xdvDc	<br>
 
 -----------------------------------------------------------------
 
+- Login Page
 
-Na entrega 2 deverá entregar os seguintes elementos:
-
-- [ ] Código da página web em HTML, CSS, JavaScript e PHP, devidamente comentado;
-- [ ] Código Python do SBC, devidamente comentado;
-- [ ] Código C do MCU, devidamente comentado;
-- [ ] Ficheiro Cisco Packet Tracer. (opcional) O código desenvolvido deve estar devidamente comentado;
-- [ ] Vídeo simples com a demonstração das potencialidades do protótipo (no máximo 100 MB) (opcional mas altamente recomendado);
-Dica: Site para comprimir ficheiros de vídeo: https://www.videosmaller.com/
-- [ ] Relatório escrito onde deve estar toda a informação relevante do Projeto, as decisões mais importantes, esquemas da solução, esquemas de rede e esquema de blocos da arquitetura IoT. Deve ser utilizado o template disponível na página da UC.
-- [ ] O relatório deve ser disponibilizado apenas em formato digital PDF e ter a seguinte estrutura:
-   1. Objetivos, com o possível enquadramento da solução numa situação real concreta;
-   2. Descrição e arquitetura da solução e os equipamentos usados;
-   3. Implementação (aspetos mais importantes);
-   4. Cenário de teste;
-   5. Resultados obtidos;
-   6. Conclusão (análise da solução, potencialidades e pontos a melhorar);
-   7.Bibliografia;
-
-nome do ficheiro: TI_NumAluno1_NumAluno2.zip
+![image](https://github.com/holandavinicius/TI-Project/assets/53379935/f51c6040-ae1b-4e55-a60c-71bb6c220180)
 
 
-![image](https://github.com/dhiegoferreira/smart-campi-A1S2TI/assets/53379935/3c4ad8cf-e152-4802-8731-d8edcedef9f7)
+- DashBoard
+
+![image](https://github.com/holandavinicius/TI-Project/assets/53379935/24bf2363-1741-45ba-91a7-a5f7ea036b91)
+
+![image](https://github.com/holandavinicius/TI-Project/assets/53379935/0add9157-c43e-4dd5-a4b2-fe5a95e4d11c)
+
+![image](https://github.com/holandavinicius/TI-Project/assets/53379935/5cb32603-86e7-4e04-b83c-bf708fb33cd5)
