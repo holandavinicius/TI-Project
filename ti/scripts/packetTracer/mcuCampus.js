@@ -12,8 +12,7 @@ function get_data_hora(){
 	var data = new Date();
 	var hora = data.getHours();
 	data.setHours(hora+1);
-	
-	//var dateISO = new Date().toISOString();
+
 	var dateISO = data.toISOString();
 	var data0 = dateISO.split('T')[0];
 	var data1 = dateISO.split('T')[1];

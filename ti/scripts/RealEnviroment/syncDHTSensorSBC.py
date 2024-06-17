@@ -34,7 +34,7 @@ while(True):
 
         
 
-        if(int(temperatura)> 20):
+        if(int(temperatura)> 15):
             GPIO.output(channel,high)
             valor = '1'
             payload = {'nome' :  nome ,'valor': valor , 'hora' : hora, 'tipo':1}
@@ -45,7 +45,29 @@ while(True):
             payload = {'nome' :  nome ,'valor': valor , 'hora' : hora, 'tipo':1}
             r = requests.post("https://iot.dei.estg.ipleiria.pt/ti/g170/api/api.php", data=payload)    
         
-        time.sleep(5)
+
+        result = requests.get("https://iot.dei.estg.ipleiria.pt/ti/g170/api/api.php?nome=humidade")
+        humidade = ""
+
+        if(result.status_code == 200):
+            humidade = result.text
+            print(humidade)
+        
+        if(humidade == ""):
+            break
+
+        if(int(humidade)> 30):
+            GPIO.output(channel,high)
+            valor = '1'
+            payload = {'nome' :  nome ,'valor': valor , 'hora' : hora, 'tipo':1}
+            r = requests.post("https://iot.dei.estg.ipleiria.pt/ti/g170/api/api.php", data=payload)    
+        else:
+            GPIO.output(channel,low)
+            valor = '0'
+            payload = {'nome' :  nome ,'valor': valor , 'hora' : hora, 'tipo':1}
+            r = requests.post("https://iot.dei.estg.ipleiria.pt/ti/g170/api/api.php", data=payload)    
+
+        time.sleep(1)
 
     except Exception as e:
         print("Unexpected error:", e)

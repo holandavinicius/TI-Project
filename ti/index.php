@@ -2,9 +2,9 @@
 
 session_start();
 
-require_once('users_authentication.php');
+require_once ('users_authentication.php');
 
-$userVerification = new UserAuthentication(); 
+$userVerification = new UserAuthentication();
 $users = $userVerification->readUsers();
 
 ?>
@@ -12,33 +12,35 @@ $users = $userVerification->readUsers();
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-    
+
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/loginpage.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
+    <!-- <meta http-equiv="refresh" content="60"> -->
     <link rel="icon" href="./src/logo.svg">
-    <link rel="stylesheet" href="./css/loginpage.css">
-    <meta http-equiv="refresh" content="60">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet"> -->
 </head>
 
 <body>
     <div class="container">
-            <img class="logoImg img-fluid" src="./src/logo.svg" alt="logo">
+        <img class="logoImg img-fluid" src="./src/logo.svg" alt="logo">
     </div>
     <form method="post">
         <div class="mb-3">
             <label for="username" class="form-label">Username:</label>
-            <input type="text" placeholder="Insert your username" class="form-control" id="username" name="username" required>
+            <input type="text" placeholder="Insert your username" class="form-control" id="username" name="username"
+                required>
         </div>
         <div class="mb-4">
             <label for="password" class="form-label">Password:</label>
-            <input type="password" placeholder="Insert your password" class="form-control" id="password" aria-label="form-control" name="password" required>
+            <input type="password" placeholder="Insert your password" class="form-control" id="password"
+                aria-label="form-control" name="password" required>
         </div>
         <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-primary">Submit</button>

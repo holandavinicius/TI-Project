@@ -47,15 +47,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
     
     //Parameters validation
-    if(!isset($_GET["nome"])){
-        http_response_code(400);
-        die("There is a unassined value to nome property.");
-    }
+    // if(!isset($_GET["nome"])){
+    //     http_response_code(400);
+    //     die("There is a unassined value to nome property.");
+    // }
 
-    if(!$deviceService->ValidateDevice($_GET["nome"])){
-        http_response_code(400);
-        die($_GET["nome"]." is not a valid device.");
-    }
+    // if(!$deviceService->ValidateDevice($_GET["nome"])){
+    //     http_response_code(400);
+    //     die($_GET["nome"]." is not a valid device.");
+    // }
 
     $device = $_GET["nome"];
     $deviceService = new DeviceDataService();
