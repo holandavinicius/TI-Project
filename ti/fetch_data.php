@@ -37,7 +37,6 @@ function fetchSensorData()
         $hora = file_get_contents($formattedDir . "/hora.txt");
         $nome = file_get_contents($formattedDir . "/nome.txt");
         $valor = file_get_contents($formattedDir . "/valor.txt");
-        $tipo = file_get_contents($formattedDir . "/tipo.txt");
         $imagefileName = ReturnFirstImageFileOfADirectory($formattedDir);
 
 

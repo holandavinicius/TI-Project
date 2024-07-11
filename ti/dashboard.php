@@ -1,6 +1,5 @@
 <?php
-require_once (__DIR__ . "/api/device_data_model.php");
-require_once (__DIR__ . "/api/device_data_service.php");
+require_once (__DIR__ . "/api/api.php");
 
 session_start();
 
@@ -114,8 +113,8 @@ function ReturnFirstImageFileOfADirectory($directory)
     <div class="container">
 
         <div class="row" id="sensor-data">
-            <div class='col-12 d-flex justify-content-center'>
-                <div class='card webcam'>
+                <!-- <div class='col-12 d-flex justify-content-center'> -->
+                <!-- <div class='card webcam'>
                     <div class="card-header text-center">
                         Camara Entrada
                     </div>
@@ -130,11 +129,10 @@ function ReturnFirstImageFileOfADirectory($directory)
                         <button id="captureButton" class="btn btn-success">Capturar Imagem</button>
                     </div>
                 </div>
-            </div>
+                </div> -->
 
 
-            <div class="row" id="sensor-data">
-            </div>
+            <div class="row" id="sensor-data"></div>
             <h2 class="section-title  text-center">Sensores</h2>
             <div id="sensors-section" class="row"></div>
 
@@ -157,7 +155,7 @@ function ReturnFirstImageFileOfADirectory($directory)
                 $actuatorsHtml = '';
 
 
-                //$startWebcam = false; // Flag to start the webcam
+
                 // Loop through each directory
                 foreach ($directories as $directory) {
 
@@ -169,7 +167,7 @@ function ReturnFirstImageFileOfADirectory($directory)
                     $imagefileName = ReturnFirstImageFileOfADirectory($formattedDir);
 
 
-
+                    echo $tipo;
                     //Actuators Evemts
                     switch ($nome) {
                         //This needs to send before post on sensor code.
@@ -204,7 +202,6 @@ function ReturnFirstImageFileOfADirectory($directory)
                         case 'movimento':
                             if ($valor >= 1) {
                                 $valor = "Ativado";
-                                $startWebcam = true; // Set flag to true when movimento is >= 1
                             } else {
                                 $valor = "Desativado";
                             }
@@ -252,17 +249,19 @@ function ReturnFirstImageFileOfADirectory($directory)
                                 </div>
                             </div>";
 
+
                     if ($tipo == 1) { // Sensors
                         $sensorsHtml .= $cardHtml;
-                    } else { // Actuators
+                    } else if($tipo == 2){ // Actuators
                         $actuatorsHtml .= $cardHtml;
                     }
+
                 }
 
+
                 echo "<script>
-                    document.getElementById('sensors-section').innerHTML = `{$sensorsHtml}`;
-                    document.getElementById('actuators-section').innerHTML = `{$actuatorsHtml}`;
-                    
+                        document.getElementById('sensors-section').innerHTML = `{$sensorsHtml}`;
+                        document.getElementById('actuators-section').innerHTML = `{$actuatorsHtml}`;
                     </script>";
             }
 
@@ -307,73 +306,73 @@ function ReturnFirstImageFileOfADirectory($directory)
     });
 
 
-    const video = document.getElementById('webcam');
-    const startButton = document.getElementById('startButton');
-    const stopButton = document.getElementById('stopButton');
-    const captureButton = document.getElementById('captureButton');
-    const imageList = document.getElementById('imageList');
-    const ajaxUrl = 'fetch_data.php'; // Replace with your fetch URL
+    // const video = document.getElementById('webcam');
+    // const startButton = document.getElementById('startButton');
+    // const stopButton = document.getElementById('stopButton');
+    // const captureButton = document.getElementById('captureButton');
+    // const imageList = document.getElementById('imageList');
+    // const ajaxUrl = 'fetch_data.php'; // Replace with your fetch URL
 
-    let captureInterval;
+    // let captureInterval;
 
-    function startWebcam() {
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => {
-                video.srcObject = stream;
-            })
-            .catch(error => {
-                console.error('Error accessing webcam: ', error);
-            });
-    }
+    // function startWebcam() {
+    //     navigator.mediaDevices.getUserMedia({ video: true })
+    //         .then(stream => {
+    //             video.srcObject = stream;
+    //         })
+    //         .catch(error => {
+    //             console.error('Error accessing webcam: ', error);
+    //         });
+    // }
 
-    function stopWebCam() {
-        const stream = video.srcObject;
-        if (stream) {
-            const tracks = stream.getTracks();
-            tracks.forEach(track => track.stop());
-            video.srcObject = null;
-        }
-    }
+    // function stopWebCam() {
+    //     const stream = video.srcObject;
+    //     if (stream) {
+    //         const tracks = stream.getTracks();
+    //         tracks.forEach(track => track.stop());
+    //         video.srcObject = null;
+    //     }
+    // }
 
-    function captureImage() {
-        const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-        const imageDataURL = canvas.toDataURL('image/jpeg');
+    // function captureImage() {
+    //     const canvas = document.createElement('canvas');
+    //     canvas.width = video.videoWidth;
+    //     canvas.height = video.videoHeight;
+    //     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+    //     const imageDataURL = canvas.toDataURL('image/jpeg');
 
-        // Create image element and append to imageList
-        // const imgElement = document.createElement('img');
-        // imgElement.src = imageDataURL;
-        // imgElement.classList.add('col-md-3', 'my-2');
-        // imageList.appendChild(imgElement);
-          // AJAX POST request to save image on the server
-        const dateNow = new Date().toISOString();
-        $.ajax({
-            url: 'save_image.php',
-            method: 'POST',
-            data: { 
-            image: imageDataURL},
-            success: function(response) {
-                console.log('Image saved successfully:', response);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error saving image:', error);
-            }
-        });
+    //     // Create image element and append to imageList
+    //     // const imgElement = document.createElement('img');
+    //     // imgElement.src = imageDataURL;
+    //     // imgElement.classList.add('col-md-3', 'my-2');
+    //     // imageList.appendChild(imgElement);
+    //       // AJAX POST request to save image on the server
+    //     const dateNow = new Date().toISOString();
+    //     $.ajax({
+    //         url: 'save_image.php',
+    //         method: 'POST',
+    //         data: { 
+    //         image: imageDataURL},
+    //         success: function(response) {
+    //             console.log('Image saved successfully:', response);
+    //         },
+    //         error: function(xhr, status, error) {
+    //             console.error('Error saving image:', error);
+    //         }
+    //     });
 
-    }
+    // }
 
 
-    startButton.addEventListener('click', startWebcam);
-    stopButton.addEventListener('click', stopWebCam);
-    captureButton.addEventListener('click', captureImage);
+    // startButton.addEventListener('click', startWebcam);
+    // stopButton.addEventListener('click', stopWebCam);
+    // captureButton.addEventListener('click', captureImage);
 
     // Start fetching data and capturing images every 5 seconds
     // 
     
-    fetchDataAndCapture(); // Initial fetch
-    captureInterval = setInterval(fetchDataAndCapture, 2000); // Fetch every 5 seconds
+    // fetchDataAndCapture(); // Initial fetch
+    // captureInterval = setInterval(fetchDataAndCapture, 2000); // Fetch every 5 seconds
 
 </script>
 
