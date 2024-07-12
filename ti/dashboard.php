@@ -132,12 +132,12 @@ function ReturnFirstImageFileOfADirectory($directory)
                 </div> -->
 
 
-            <div class="row" id="sensor-data"></div>
+            <!-- <div class="row" id="sensor-data"></div>
             <h2 class="section-title  text-center">Sensores</h2>
             <div id="sensors-section" class="row"></div>
 
             <h2 class="section-title  text-center mt-20">Atuadores</h2>
-            <div id="actuators-section" class="row"></div>
+            <div id="actuators-section" class="row"></div> -->
 
             <?php
             function reloadData()
@@ -163,11 +163,10 @@ function ReturnFirstImageFileOfADirectory($directory)
                     $hora = file_get_contents($formattedDir . "/hora.txt");
                     $nome = file_get_contents($formattedDir . "/nome.txt");
                     $valor = file_get_contents($formattedDir . "/valor.txt");
-                    $tipo = file_get_contents($formattedDir . "/tipo.txt");
                     $imagefileName = ReturnFirstImageFileOfADirectory($formattedDir);
 
 
-                    echo $tipo;
+                    
                     //Actuators Evemts
                     switch ($nome) {
                         //This needs to send before post on sensor code.
@@ -249,20 +248,15 @@ function ReturnFirstImageFileOfADirectory($directory)
                                 </div>
                             </div>";
 
-
-                    if ($tipo == 1) { // Sensors
-                        $sensorsHtml .= $cardHtml;
-                    } else if($tipo == 2){ // Actuators
-                        $actuatorsHtml .= $cardHtml;
-                    }
-
+                    echo $cardHtml;
+           
                 }
 
 
-                echo "<script>
-                        document.getElementById('sensors-section').innerHTML = `{$sensorsHtml}`;
-                        document.getElementById('actuators-section').innerHTML = `{$actuatorsHtml}`;
-                    </script>";
+                // echo "<script>
+                //         document.getElementById('sensors-section').innerHTML = `{$sensorsHtml}`;
+                //         document.getElementById('actuators-section').innerHTML = `{$actuatorsHtml}`;
+                //     </script>";
             }
 
 
