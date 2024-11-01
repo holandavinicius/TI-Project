@@ -9,15 +9,6 @@ This repository will contain all files of TI project.
 
 <h2> TASKS PART 1 (Due: Sunday, 23 April 2023, 11:59 PM) : </h2>
 
------------------------------------------------------------------
-
-Integration steps on Server:
-
-Path on Windows Network: \\iot.dei.estg.ipleiria.pt\EI-TI-g170 <br>
-Folder user: g170	<br>
-Password: LKuGjS6xdvDc	<br>
-
------------------------------------------------------------------
 
 
 - [ ] API para recolha e envio de informações, com as respetiva validações, seguindos boas práticas de desenvolvimento web. <br>
